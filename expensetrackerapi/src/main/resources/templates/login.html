@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Bozsó Miklós - Iktató alkalmazás</title>
+<link rel="stylesheet" th:href="@{/bootstrap/bootstrap.css}">
+<link rel="stylesheet" th:href="@{/assets/login.css}">
+</head>
+<body>
+	<div class="jumbotron jumbotron-fluid">
+		<div class="container" align=center>
+			<h1 class="display-4">
+				<span class="text-white"><strong>Iktató rendszer.</strong></span>
+			</h1>
+			<span class="text-white">Jelentkezz be.</span>
+		</div>
+	</div>
+	<div class="display-4" align=center>
+		<span class="text-primary">Jelentkezz be</span> a kezdéshez!
+	</div>
+	<br />
+	<div th:if="${param.error}">
+		<h4 class="row justify-content-center text-danger">Hibás felhasználó adatok!</h4>
+	</div>
+	<div th:if="${param.logout}">
+		<h4 class="row justify-content-center text-primary">You have
+			logged out successfully!</h4>
+	</div>
+	<div class="card">
+		<h5 class="card-header">
+			<span class="text-white">Bejelentkezés</span>
+		</h5>
+		<div class="card-body">
+			<form th:action="@{/login}" method="POST">
+				<div class="form-group">
+					<input type="email" class="form-control" name="username"
+						placeholder="Email">
+				</div>
+				<div class="form-group">
+					<input type="password" class="form-control" name="password"
+						placeholder="Password">
+				</div>
+				<button type="submit" class="btn btn-primary">Bejelentkezés</button>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

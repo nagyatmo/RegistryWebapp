@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Kezdőlap</title>
+<link rel="stylesheet" th:href="@{/bootstrap/bootstrap.css}">
+<link rel="stylesheet" th:href="@{/assets/home.css}">
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">Iktato rendszer</a>
+		<a class="navbar-brand" href="/submit">Adatfelvitel</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<a class="navbar-brand" href="/search">Keresés</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+	</nav>
+
+<!--		<div class="collapse navbar-collapse" id="navbarSupportedContent">-->
+<!--			<ul class="navbar-nav mr-auto">-->
+<!--				<li class="nav-item active"><a class="nav-link"-->
+<!--					th:href="@{/home}">Home <span class="sr-only">(current)</span>-->
+<!--				</a></li>-->
+<!--				<li class="nav-item"><a class="nav-link" th:href="@{/events}">Events</a></li>-->
+<!--				<li class="nav-item dropdown"><a-->
+<!--					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"-->
+<!--					role="button" data-toggle="dropdown"> Language </a>-->
+<!--					<div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+<!--						<a class="dropdown-item" href="#">English</a> <a-->
+<!--							class="dropdown-item" href="#">Magyar</a>-->
+<!--					</div></li>-->
+<!--			</ul>-->
+<!--			<form class="form-inline my-2 my-lg-0" th:action="@{/logout}"-->
+<!--				method="POST">-->
+<!--				<button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Logout</button>-->
+<!--			</form>-->
+<!--		</div>-->
+<!--	</nav>-->
+
+	<div class="card border-primary mb-3">
+		<h5 class="card-header">
+			<span class="text-white">Ön adatai</span>
+		</h5>
+		<div class="card-body">
+				<div class="input-group mb-2">
+					<div class="input-group-prepend">
+						<div class="input-group-text">Name</div>
+					</div>
+					<input type="text" class="form-control" th:name="userEmail"
+						th:value="${user.email}">
+				</div>
+		</div>
+	</div>
+
+
+<!--	<div class="card border-primary mb-3">-->
+<!--		<h5 class="card-header">-->
+<!--			<span class="text-white">Wagers</span>-->
+<!--		</h5>-->
+<!--		<div class="card-body">-->
+<!--			<table class="table">-->
+<!--				<thead class="thead">-->
+<!--					<tr>-->
+<!--						<th scope="col">Remove wager</th>-->
+<!--						<th scope="col">Event title</th>-->
+<!--						<th scope="col">Event type</th>-->
+<!--						<th scope="col">Bet type</th>-->
+<!--						<th scope="col">Outcome value</th>-->
+<!--						<th scope="col">Outcome odd</th>-->
+<!--						<th scope="col">Wager amount</th>-->
+<!--						<th scope="col">Winner</th>-->
+<!--						<th scope="col">Processed</th>-->
+<!--					</tr>-->
+<!--				</thead>-->
+<!--				<tbody>-->
+<!--					<tr th:each="wager, rows : ${wagers}">-->
+<!--						<td>-->
+<!--							<form th:action="@{/removeWagerPost}" method="POST">-->
+<!--								<button type="submit" class="btn btn-primary"-->
+<!--									th:name="wagerIndex" th:value="${rows.count}">Remove</button>-->
+<!--							</form>-->
+<!--						</td>-->
+<!--						<td th:text="${wager.outcome.bet.event.title}"></td>-->
+<!--						<td th:text="${wager.outcome.bet.description}"></td>-->
+<!--						<td th:text="${wager.outcome.description}"></td>-->
+<!--						<td th:text="${wager.outcome.odd}"></td>-->
+<!--						<td th:text="${wager.amount}"></td>-->
+<!--						<td th:text="${wager.win}"></td>-->
+<!--						<td th:text="${wager.processed}"></td>-->
+<!--					</tr>-->
+<!--				</tbody>-->
+<!--			</table>-->
+<!--		</div>-->
+<!--	</div>-->
+
+</body>
+</html>
