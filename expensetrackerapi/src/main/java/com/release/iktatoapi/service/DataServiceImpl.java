@@ -45,6 +45,7 @@ public class DataServiceImpl implements DataService {
     @Override
     public Data saveData(Data data) {
         data.setUser(userService.getLoggedInUser());
+        data.setIsDone(false);
         return dataRepo.saveAndFlush(data);
     }
 

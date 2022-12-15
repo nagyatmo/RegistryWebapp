@@ -30,6 +30,8 @@ public class SearchController {
         return dataService.getAllData();
     }
 
+
+
     @RequestMapping(path = {"/search"})
     public String home(Data data, Model model, String keyword) {
         if(keyword!=null) {

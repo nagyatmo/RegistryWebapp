@@ -67,16 +67,24 @@
             <td th:text="${data.date}"></td>
             <td th:text="${data.description}">
             <td>
-                <form method="post">
-                    <div class="ml-2">
-                        <div class="form-group mt-3">
-                            <span class="ml-2"><input type="checkbox" th:field="*{data.isDone}" data-toggle="switch"/></span>
-                        </div>
-                    </div>
-                        <button class="btn btn-primary" type="submit">Mentés</button>
-
+            <div th:unless="${data.isDone}"><p>Folyamatban</p></div>
+            <div th:if="${data.isDone}"><p>Kész</p></div>
+            </td>
+            <td>
+                <form th:action="@{/setDone}" method="post">
+                    <button type="submit" class="btn btn-info" th:name="dataIndex" th:value="${rows.count}">Kész</button>
                 </form>
             </td>
+<!--                <form method="post">-->
+<!--                    <div class="ml-2">-->
+<!--                        <div class="form-group mt-3">-->
+<!--                            <span class="ml-2"><input type="checkbox" th:field="*{data.isDone}" data-toggle="switch"/></span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                        <button class="btn btn-primary" type="submit">Mentés</button>-->
+
+<!--                </form>-->
+<!--            </td>-->
         </tr>
         </tbody>
          </table>
