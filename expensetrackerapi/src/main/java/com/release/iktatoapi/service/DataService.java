@@ -13,8 +13,5 @@ public interface DataService {
     void deleteById(Long id);
     Data saveData(Data data);
     Data updateDataDetails(Long id, Data expense);
-    List<Data> readByHszNum(String hszNum, Pageable page);
-    List<Data> getByHszNum(String hszNum);
-//    List<Data> readByName(String name, Pageable page);
-//    List<Data> readByDate(Date startDate, Date endDate, Pageable page);
+    List<Data> getByKeyword(String hszNum);
 }

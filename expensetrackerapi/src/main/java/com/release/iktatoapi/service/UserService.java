@@ -8,8 +8,6 @@ public interface UserService {
 
     User read();
 
-//    User update(UserModel user);
-
     void delete();
 
     User getLoggedInUser();

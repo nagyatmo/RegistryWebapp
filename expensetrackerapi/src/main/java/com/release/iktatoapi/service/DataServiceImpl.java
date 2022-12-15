@@ -66,13 +66,10 @@ public class DataServiceImpl implements DataService {
         return dataRepo.save(matchingData);
     }
 
-    @Override
-    public List<Data> readByHszNum(String hszNum, Pageable page) {
-        return dataRepo.findByUserIdAndHszNum(userService.getLoggedInUser().getId(), hszNum, page).toList();
-    }
+
 
     @Override
-    public List<Data> getByHszNum(String keyWord) {
+    public List<Data> getByKeyword(String keyWord) {
         return dataRepo.findByKeyword(keyWord);
     }
 //

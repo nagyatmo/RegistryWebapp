@@ -63,4 +63,5 @@ public class Data {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private User user;
+    private Boolean isDone=false;
 }

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="fa340d06-18c0-4bc7-b225-e8454617fce9" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/expensetrackerapi/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/expensetrackerapi/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/expensetrackerapi/src/main/java/com/release/iktatoapi/data/entity/Data.java" beforeDir="false" afterPath="$PROJECT_DIR$/expensetrackerapi/src/main/java/com/release/iktatoapi/data/entity/Data.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/expensetrackerapi/src/main/java/com/release/iktatoapi/data/repository/DataRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/expensetrackerapi/src/main/java/com/release/iktatoapi/data/repository/DataRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/expensetrackerapi/src/main/java/com/release/iktatoapi/service/DataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/expensetrackerapi/src/main/java/com/release/iktatoapi/service/DataService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/expensetrackerapi/src/main/java/com/release/iktatoapi/service/DataServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/expensetrackerapi/src/main/java/com/release/iktatoapi/service/DataServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/expensetrackerapi/src/main/java/com/release/iktatoapi/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/expensetrackerapi/src/main/java/com/release/iktatoapi/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/expensetrackerapi/src/main/java/com/release/iktatoapi/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/expensetrackerapi/src/main/java/com/release/iktatoapi/service/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/expensetrackerapi/src/main/java/com/release/iktatoapi/web/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/expensetrackerapi/src/main/java/com/release/iktatoapi/web/config/WebSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/expensetrackerapi/src/main/java/com/release/iktatoapi/web/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/expensetrackerapi/src/main/java/com/release/iktatoapi/web/controller/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/expensetrackerapi/src/main/java/com/release/iktatoapi/web/controller/SearchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/expensetrackerapi/src/main/java/com/release/iktatoapi/web/controller/SearchController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/expensetrackerapi/src/main/resources/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/expensetrackerapi/src/main/resources/templates/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/expensetrackerapi/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/expensetrackerapi/src/main/resources/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/expensetrackerapi/src/main/resources/templates/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/expensetrackerapi/src/main/resources/templates/search.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2IxFU4LfQXnHwlqy66nQGqq3IwB" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/Adam_Nagy4/Learn&Practise/RegistryWebapp/RegistryWebapp/expensetrackerapi"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fa340d06-18c0-4bc7-b225-e8454617fce9" name="Changes" comment="" />
+      <created>1671115339316</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1671115339316</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

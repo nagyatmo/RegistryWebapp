@@ -17,9 +17,7 @@ public interface DataRepository extends JpaRepository<Data, Long> {
 
     @Query(value = "select * from tbl_data s where s.data_hlyrsz like %:keyword% or s.data_irsz like %:keyword% or s.data_varos like %:keyword% or s.data_megbizo like %:keyword% or s.ig_category like %:keyword%", nativeQuery = true)
     List<Data> findByKeyword(@Param("keyword") String hszNum);
-    Page<Data> findByUserIdAndHszNum(Long userId, String hszNum, Pageable page);
-//    Page<Data> findByUserAndNameContaining(Long userId, String keyword, Pageable page);
-//    Page<Data> findByUserAndDateBetween(Long userId, Date startDate, Date endDate, Pageable page);
+
     Page<Data> findByUserId(Long userId, Pageable page);
     Optional<Data> findByUserIdAndId(Long userId, Long expenseId);
 }
