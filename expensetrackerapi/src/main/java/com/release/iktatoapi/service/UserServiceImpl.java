@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService{
     private UserRepository userRepository;
 
     @Override
-    public User createUser(UserModel user) {
+    public User createUser(User user) {
         if (userRepository.existsByEmail(user.getEmail())) {
             throw new ItemAlreadyExistsException("User is already register with email:"+user.getEmail());
         }
@@ -39,15 +39,15 @@ public class UserServiceImpl implements UserService{
         return userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found for the id:"+userId));
     }
 
-    @Override
-    public User update(UserModel user) {
-        User existingUser = read();
-        existingUser.setName(user.getName() != null ? user.getName() : existingUser.getName());
-        existingUser.setEmail(user.getEmail() != null ? user.getEmail() : existingUser.getEmail());
-        existingUser.setPassword(user.getPassword() != null ? bcryptEncoder.encode(user.getPassword()) : existingUser.getPassword());
-        existingUser.setAge(user.getAge() != null ? user.getAge() : existingUser.getAge());
-        return userRepository.save(existingUser);
-    }
+//    @Override
+//    public User update(UserModel user) {
+//        User existingUser = read();
+//        existingUser.setName(user.getName() != null ? user.getName() : existingUser.getName());
+//        existingUser.setEmail(user.getEmail() != null ? user.getEmail() : existingUser.getEmail());
+//        existingUser.setPassword(user.getPassword() != null ? bcryptEncoder.encode(user.getPassword()) : existingUser.getPassword());
+//        existingUser.setAge(user.getAge() != null ? user.getAge() : existingUser.getAge());
+//        return userRepository.save(existingUser);
+//    }
 
     @Override
     public void delete() {
