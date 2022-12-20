@@ -1,6 +1,7 @@
 package com.release.iktatoapi.service;
 
 import com.release.iktatoapi.data.entity.Data;
+import com.release.iktatoapi.data.entity.DataHolder;
 import com.release.iktatoapi.data.repository.DataRepository;
 import com.release.iktatoapi.service.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class DataServiceImpl implements DataService {
     @Autowired
     private DataRepository dataRepo;
 
+    @Autowired
+    private DataHolderService dataHolderService;
+
     @Override
     public List<Data> getAllData() {
         return dataRepo.findAll();
@@ -43,10 +47,12 @@ public class DataServiceImpl implements DataService {
     }
 
     @Override
-    public Data saveData(Data data) {
+    public void saveData(Data data) {
         data.setUser(userService.getLoggedInUser());
         data.setIsDone(false);
-        return dataRepo.saveAndFlush(data);
+        dataRepo.saveAndFlush(data);
+        data.getDataHolder().getDataStack().add(data);
+        dataHolderService.updateIktNum(data.getDataHolder(),data.getDataHolder().getId());
     }
 
     @Override

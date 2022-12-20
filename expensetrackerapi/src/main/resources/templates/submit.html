@@ -17,12 +17,34 @@
     </button>
 </nav>
 <div class="card border-primary mb-3">
+    <h2 class="card-header" align="center">Iktatószám generálás</h2>
+    <div class="card-body">
+        <form class="col card p-3 mb-5" method="post" th:action="@{/generateDataHolder}">
+            <div class="container">
+                <input class="btn btn-primary" type="submit" value="Új iktatószám generálása">
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card border-primary mb-3">
     <h2 class="card-header" align="center">Adatrögzítés</h2>
     <div class="card-body">
         <form class="col card p-3 mb-5" method="post" th:action="@{/submit}" th:object="${dataInfo}">
             <div class="container">
                 <div class="row">
                     <div class="col">
+                        <div class="form-group" >
+                            <label for="dataH">Iktatószám csatolása</label>
+                            <select class="form-control " id="dataH" required th:field="*{dataHolder}">
+                                <option hidden value="">Válassz iktatószámot</option>
+                                <option
+                                        th:each="data, rows : ${dataList}"
+                                        th:text="${data.iktNum}"
+                                        th:value="${data.id}">
+                                </option>
+                            </select>
+                        </div>
                             <div class="form-group">
                                 <label for="hszNum">Helyzajzi szám</label>
                                 <input class="form-control" id="hszNum" placeholder="Helyrajzi szám" required
@@ -94,9 +116,9 @@
                                    type="date"/>
                         </div>
                         <div class="form-group">
-                            <label for="ig_category">Ig Típus</label>
+                            <label for="ig_category">Megbízó típus</label>
                             <select class="form-control " id="ig_category" required th:field="*{ig_category}">
-                                <option hidden value="">Válassz Ig típust</option>
+                                <option hidden value="">Válassz megbízó típust</option>
                                 <option
                                         th:each="igCategory : ${T(com.release.iktatoapi.data.entity.IgCategory).values()}"
                                         th:text="${igCategory}"
@@ -107,9 +129,9 @@
                     </div>
                     <div class="col">
                             <div class="form-group">
-                                <label for="va_category">Va Típus</label>
+                                <label for="va_category">Szakértői típus</label>
                                 <select class="form-control " id="va_category" required th:field="*{va_category}">
-                                    <option hidden value="">Válassz Va típust</option>
+                                    <option hidden value="">Válassz szakértői típust</option>
                                     <option
                                             th:each="vaCategory : ${T(com.release.iktatoapi.data.entity.VaCategory).values()}"
                                             th:text="${vaCategory}"

@@ -64,4 +64,7 @@ public class Data {
     @JsonIgnore
     private User user;
     private Boolean isDone;
+    @ManyToOne
+    @JsonIgnore
+    private DataHolder dataHolder;
 }

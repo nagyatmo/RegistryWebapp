@@ -27,67 +27,123 @@
         <button type="submit" class="btn btn-info" >Keresés</button>
         <button type="submit" class="btn btn-info" >Alapállapot</button>
     </form>
-    <table class="table table-bordered table-sm mt-2">
-        <thead>
-        <tr>
-            <th scope="col">Sorszám</th>
-            <th scope="col">Helyrajzi szám</th>
-            <th scope="col">Irányítószám</th>
-            <th scope="col">Város</th>
-            <th scope="col">Utca</th>
-            <th scope="col">Házszám</th>
-            <th scope="col">Emelet</th>
-            <th scope="col">Ajtó</th>
-            <th scope="col">Megbízó</th>
-            <th scope="col">Megbízó képviselője</th>
-            <th scope="col">Díj</th>
-            <th scope="col">Ig típus</th>
-            <th scope="col">Va típus</th>
-            <th scope="col">Határidő</th>
-            <th scope="col">Megjegyzés</th>
-            <th scope="col">Állapot</th>
-            <th scope="col">Műveletek</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="data, rows : ${list}">
-            <td th:text="${data.id}"></td>
-            <td th:text="${data.hszNum}"></td>
-            <td th:text="${data.irNum}"></td>
-            <td th:text="${data.city}"></td>
-            <td th:text="${data.street}"></td>
-            <td th:text="${data.streetNum}"></td>
-            <td th:text="${data.floorNum}"></td>
-            <td th:text="${data.doorNum}"></td>
-            <td th:text="${data.principal}"></td>
-            <td th:text="${data.principalDelegate}"></td>
-            <td th:text="${data.amount}"></td>
-            <td th:text="${data.ig_category}"></td>
-            <td th:text="${data.va_category}"></td>
-            <td th:text="${data.date}"></td>
-            <td th:text="${data.description}">
-            <td>
-            <div th:unless="${data.isDone}"><p>Folyamatban</p></div>
-            <div th:if="${data.isDone}"><p>Kész</p></div>
-            </td>
-            <td>
-                <form th:action="@{/setDone}" method="post">
-                    <button type="submit" class="btn btn-info" th:name="dataIndex" th:value="${rows.count}">Kész</button>
-                </form>
-            </td>
-<!--                <form method="post">-->
-<!--                    <div class="ml-2">-->
-<!--                        <div class="form-group mt-3">-->
-<!--                            <span class="ml-2"><input type="checkbox" th:field="*{data.isDone}" data-toggle="switch"/></span>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                        <button class="btn btn-primary" type="submit">Mentés</button>-->
+        <table class="table table-bordered table-sm mt-2">
+            <thead>
+            <tr>
+                <th scope="col">Helyrajzi szám</th>
+                <th scope="col">Irányítószám</th>
+                <th scope="col">Város</th>
+                <th scope="col">Utca</th>
+                <th scope="col">Házszám</th>
+                <th scope="col">Emelet</th>
+                <th scope="col">Ajtó</th>
+                <th scope="col">Megbízó</th>
+                <th scope="col">Megbízó képviselője</th>
+                <th scope="col">Díj</th>
+                <th scope="col">Megbízó típus</th>
+                <th scope="col">Szakértői típus</th>
+                <th scope="col">Határidő</th>
+                <th scope="col">Megjegyzés</th>
+                <th scope="col">Állapot</th>
+                <th scope="col">Műveletek</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="data, rows : ${list}">
+                <td th:text="${data.dataHolder.iktNum}"></td>
+                <td th:text="${data.hszNum}"></td>
+                <td th:text="${data.irNum}"></td>
+                <td th:text="${data.city}"></td>
+                <td th:text="${data.street}"></td>
+                <td th:text="${data.streetNum}"></td>
+                <td th:text="${data.floorNum}"></td>
+                <td th:text="${data.doorNum}"></td>
+                <td th:text="${data.principal}"></td>
+                <td th:text="${data.principalDelegate}"></td>
+                <td th:text="${data.amount}"></td>
+                <td th:text="${data.ig_category}"></td>
+                <td th:text="${data.va_category}"></td>
+                <td th:text="${data.date}"></td>
+                <td th:text="${data.description}">
+                <td>
+                    <div th:unless="${data.isDone}"><p>Folyamatban</p></div>
+                    <div th:if="${data.isDone}"><p>Kész</p></div>
+                </td>
+                <td>
+                    <form th:action="@{/setDone}" method="post">
+                        <button type="submit" class="btn btn-info" th:name="dataIndex" th:value="${rows.count}">Kész</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
-<!--                </form>-->
-<!--            </td>-->
-        </tr>
-        </tbody>
-         </table>
+        <div class="card border-primary mb-3">
+            <h2 class="card-header" align="center">Összes iktatás</h2>
+            <div class="card-body">
+                <table class="table table-bordered table-sm mt-2">
+                    <tbody>
+                        <tr th:each="maindat, rows : ${maindatas}" align="center">
+                            <td align="center" th:text="${maindat.iktNum}"></td>
+                                <table class="table table-bordered table-sm mt-2">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Helyrajzi szám</th>
+                                            <th scope="col">Irányítószám</th>
+                                            <th scope="col">Város</th>
+                                            <th scope="col">Utca</th>
+                                            <th scope="col">Házszám</th>
+                                            <th scope="col">Emelet</th>
+                                            <th scope="col">Ajtó</th>
+                                            <th scope="col">Megbízó</th>
+                                            <th scope="col">Megbízó képviselője</th>
+                                            <th scope="col">Díj</th>
+                                            <th scope="col">Megbízó típus</th>
+                                            <th scope="col">Szakértői típus</th>
+                                            <th scope="col">Határidő</th>
+                                            <th scope="col">Megjegyzés</th>
+                                            <th scope="col">Állapot</th>
+                                            <th scope="col">Műveletek</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                         <tr th:each="data, rows : ${maindat.dataStack}">
+                                            <td th:text="${data.hszNum}"></td>
+                                            <td th:text="${data.irNum}"></td>
+                                            <td th:text="${data.city}"></td>
+                                            <td th:text="${data.street}"></td>
+                                            <td th:text="${data.streetNum}"></td>
+                                            <td th:text="${data.floorNum}"></td>
+                                            <td th:text="${data.doorNum}"></td>
+                                            <td th:text="${data.principal}"></td>
+                                            <td th:text="${data.principalDelegate}"></td>
+                                            <td th:text="${data.amount}"></td>
+                                            <td th:text="${data.ig_category}"></td>
+                                            <td th:text="${data.va_category}"></td>
+                                            <td th:text="${data.date}"></td>
+                                            <td th:text="${data.description}">
+                                            <td>
+                                                <div th:unless="${data.isDone}"><p>Folyamatban</p></div>
+                                                <div th:if="${data.isDone}"><p>Kész</p></div>
+                                            </td>
+                                            <td>
+                                                <form th:action="@{/setDone}" method="post">
+                                                    <button type="submit" class="btn btn-info" th:name="dataIndex" th:value="${rows.count}">Kész</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
         </div>
     </div>
 
