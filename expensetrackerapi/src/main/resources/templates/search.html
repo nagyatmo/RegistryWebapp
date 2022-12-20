@@ -82,10 +82,10 @@
                     <div th:if="${data.isDone}"><p>Kész</p></div>
                 </td>
                 <td>
-                    <form th:action="@{/setDone}" method="post">
+                    <form th:unless="${data.isDone}" th:action="@{/setDone}" method="post">
                         <button type="submit" class="btn btn-info" th:name="dataIndex" th:value="${data.id}">Kész</button>
                     </form>
-                    <form th:action="@{/setNotDone}" method="post">
+                    <form th:if="${data.isDone}" th:action="@{/setNotDone}" method="post">
                         <button type="submit" class="btn btn-info" th:name="dataIndex" th:value="${data.id}">Folyamatban</button>
                     </form>
                 </td>
@@ -145,10 +145,10 @@
                                                 <div th:if="${data.isDone}"><p>Kész</p></div>
                                             </td>
                                             <td>
-                                                <form th:action="@{/setDone}" method="post">
+                                                <form th:unless="${data.isDone}" th:action="@{/setDone}" method="post">
                                                     <button type="submit" class="btn btn-info" th:name="dataIndex" th:value="${data.id}">Kész</button>
                                                 </form>
-                                                <form th:action="@{/setNotDone}" method="post">
+                                                <form th:if="${data.isDone}" th:action="@{/setNotDone}" method="post">
                                                     <button type="submit" class="btn btn-info" th:name="dataIndex" th:value="${data.id}">Folyamatban</button>
                                                 </form>
                                             </td>
