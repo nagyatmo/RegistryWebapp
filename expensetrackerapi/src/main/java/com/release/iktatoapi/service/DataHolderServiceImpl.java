@@ -31,7 +31,8 @@ public class DataHolderServiceImpl implements DataHolderService{
     public DataHolder saveDataHolder(DataHolder dataHolder) {
 
         holderRepository.saveAndFlush(dataHolder);
-        dataHolder.setIktNum("BM_"+dataHolder.getId());
+        dataHolder.setIktNumFront("BM_"+holderRepository.findAll().stream().count());
+        dataHolder.setIktNum(dataHolder.getIktNumFront());
         return holderRepository.saveAndFlush(dataHolder);
     }
 
@@ -44,7 +45,13 @@ public class DataHolderServiceImpl implements DataHolderService{
     public DataHolder updateIktNum(DataHolder dataHolder, Long id) {
         int year = Year.now().getValue();
         //newDataHolder.setDataStack(dataHolder.getDataStack()!=null ? dataHolder.getDataStack() : newDataHolder.getDataStack());
-        dataHolder.setIktNum("BM_"+dataHolder.getId()+"_"+ dataService.getAllData().stream().filter(n->n.getDataHolder().getId().equals(id)).count() +"_"+year);
+        dataHolder.setIktNumEnd("_"+ dataService.getAllData().stream().filter(n->n.getDataHolder().getId().equals(id)).count() +"_"+year);
+        dataHolder.setIktNum(dataHolder.getIktNumFront()+dataHolder.getIktNumEnd());
         return holderRepository.save(dataHolder);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        holderRepository.deleteById(id);
     }
 }

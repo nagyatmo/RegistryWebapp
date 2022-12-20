@@ -22,14 +22,26 @@
 <div class="card border-primary mb-3">
     <h2 class="card-header" align="center">Keresés</h2>
     <div class="card-body">
-    <form th:action="@{/search}" method="get">
-        <input type="text" name="keyword" th:value="${keyword}"  placeholder="Keresés helyrajzi szám/Irányítószám/Város/Megbízó alapján" size="50" >
-        <button type="submit" class="btn btn-info" >Keresés</button>
-        <button type="submit" class="btn btn-info" >Alapállapot</button>
-    </form>
+        <div class="container">
+            <div class="row justify-content-start">
+                <div class="col">
+                    <form th:action="@{/search}" method="get">
+                        <input type="text" name="keyword" th:value="${keyword}"  placeholder="Keresés helyrajzi szám/Irányítószám/Város/Megbízó alapján" size="50" minlength="1">
+                        <button type="submit" class="btn btn-info" >Keresés</button>
+                     </form>
+                </div>
+                <div class="col">
+                    <form th:action="@{/searchReset}" method="get">
+                        <button type="submit" class="btn btn-info" >Alapállapot</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <table class="table table-bordered table-sm mt-2">
             <thead>
             <tr>
+                <th scope="col">Iktatás száma</th>
                 <th scope="col">Helyrajzi szám</th>
                 <th scope="col">Irányítószám</th>
                 <th scope="col">Város</th>
@@ -71,7 +83,10 @@
                 </td>
                 <td>
                     <form th:action="@{/setDone}" method="post">
-                        <button type="submit" class="btn btn-info" th:name="dataIndex" th:value="${rows.count}">Kész</button>
+                        <button type="submit" class="btn btn-info" th:name="dataIndex" th:value="${data.id}">Kész</button>
+                    </form>
+                    <form th:action="@{/setNotDone}" method="post">
+                        <button type="submit" class="btn btn-info" th:name="dataIndex" th:value="${data.id}">Folyamatban</button>
                     </form>
                 </td>
             </tr>
@@ -87,6 +102,7 @@
                     <tbody>
                         <tr th:each="maindat, rows : ${maindatas}" align="center">
                             <td align="center" th:text="${maindat.iktNum}"></td>
+                            <td>
                                 <table class="table table-bordered table-sm mt-2">
                                     <thead>
                                         <tr>
@@ -130,13 +146,17 @@
                                             </td>
                                             <td>
                                                 <form th:action="@{/setDone}" method="post">
-                                                    <button type="submit" class="btn btn-info" th:name="dataIndex" th:value="${rows.count}">Kész</button>
+                                                    <button type="submit" class="btn btn-info" th:name="dataIndex" th:value="${data.id}">Kész</button>
+                                                </form>
+                                                <form th:action="@{/setNotDone}" method="post">
+                                                    <button type="submit" class="btn btn-info" th:name="dataIndex" th:value="${data.id}">Folyamatban</button>
                                                 </form>
                                             </td>
                                         </tr>
 
                                     </tbody>
                                 </table>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

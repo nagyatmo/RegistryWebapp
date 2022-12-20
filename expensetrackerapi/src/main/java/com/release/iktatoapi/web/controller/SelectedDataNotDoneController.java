@@ -10,21 +10,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class SelectedDataDoneController {
+public class SelectedDataNotDoneController {
     @Autowired
     private DataService dataService;
 
 
 
-    @ModelAttribute("setDoneData")
+    @ModelAttribute("setNotDoneData")
     public Data setSelectedDataToDone(@RequestParam("dataIndex") int dataIndex) {
         Data selectedData = dataService.getAllData().get(dataIndex - 1);
-        selectedData.setIsDone(true);
+        selectedData.setIsDone(false);
         dataService.updateDataDetails(selectedData.getId(),selectedData);
         return selectedData;
     }
 
-    @RequestMapping(value = "/setDone", method = RequestMethod.POST)
+    @RequestMapping(value = "/setNotDone", method = RequestMethod.POST)
     public String selectedDataPost() {
         return "redirect:search";
     }

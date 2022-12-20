@@ -20,6 +20,8 @@ public class DataHolder {
             fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "dataId", referencedColumnName = "id")
     private List<Data> dataStack;
+    private String iktNumFront;
+    private String iktNumEnd;
     private String iktNum;
 
 }

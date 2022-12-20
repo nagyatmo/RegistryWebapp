@@ -10,4 +10,5 @@ public interface DataHolderService {
     DataHolder saveDataHolder(DataHolder dataHolder);
     List<DataHolder> getAllDataHolder();
     DataHolder updateIktNum(DataHolder dataHolder, Long id);
+    void deleteById(Long id);
 }

@@ -25,6 +25,28 @@
             </div>
         </form>
     </div>
+    <h2 class="card-header" align="center">Iktatószám Törlése</h2>
+    <div class="card-body">
+        <form class="col card p-3 mb-5" method="post" th:action="@{/deleteDataHolder}" th:object="${dataInfo}">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <select class="form-control" required th:field="*{dataHolder}">
+                            <option hidden value="">Válassz iktatószámot</option>
+                            <option
+                                    th:each="data, rows : ${dataList}"
+                                    th:text="${data.iktNum}"
+                                    th:value="${data.id}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <input class="btn btn-primary" type="submit" value="Iktatószám törlése">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 
 <div class="card border-primary mb-3">

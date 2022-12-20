@@ -30,6 +30,13 @@ public class SubmitController {
         dataHolderService.saveDataHolder(newDataHolder);
         return "redirect:/submit";
     }
+    @PostMapping("/deleteDataHolder")
+    public String deleteDataHolder(Model model, @ModelAttribute Data dataInfo){
+        if(dataInfo.getDataHolder().getDataStack().size()==0) {
+            dataHolderService.deleteById(dataInfo.getDataHolder().getId());
+        }
+        return "redirect:/submit";
+    }
 
     @RequestMapping(value = "/submit", method = RequestMethod.GET)
     public String getSubmit(Model model) {

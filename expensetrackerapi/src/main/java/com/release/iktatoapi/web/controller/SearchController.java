@@ -51,4 +51,9 @@ public class SearchController {
         }
         return "search";
     }
+
+    @RequestMapping(path = {"/searchReset"})
+    public String searchReset() {
+        return "search";
+    }
 }
