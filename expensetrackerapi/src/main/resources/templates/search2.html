@@ -26,8 +26,9 @@
     </button>
 </nav>
 
-<div class="container-fluid" style="max-width: 900px; margin: 0 auto;">
-    <h2 class="text-center">Iktatások</h2>
+<div class="card border-primary mb-3">
+    <h2 class="card-header" align="center">Keresés</h2>
+    <div class="card-body">
 
     <div th:if="${message != null}" class="alert alert-success alert-dismissible fade show text-center message"
          role="alert">
@@ -54,13 +55,18 @@
         </form>
     </div>
 </div>
+</div>
 
 
+<div class="card border-primary mb-3">
+    <h2 class="card-header" align="center">Iktatások</h2>
+    <div class="card-body">
 <div th:if="${keyword==null}">
     <table class="table table-hover table-responsive-xl">
         <thead class="thead-light">
         <tr>
             <th scope="col">Iktatószám</th>
+            <th scope="col">Részletek</th>
         </tr>
         </thead>
         <tbody>
@@ -173,6 +179,9 @@
                     </tbody>
                 </table>
 </div>
+    </div>
+</div>
+
 
 <nav aria-label="Pagination" th:if="${totalPages > 0}">
     <ul class="pagination justify-content-center">

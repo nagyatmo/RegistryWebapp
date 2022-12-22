@@ -2,9 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Kezdőlap</title>
+    <title>Kiválasztott iktatás</title>
     <link rel="stylesheet" th:href="@{/bootstrap/bootstrap.css}">
-    <link rel="stylesheet" th:href="@{/assets/home.css}">
+    <link rel="stylesheet" th:href="@{/assets/search.css}">
+    <link th:rel="stylesheet" th:href="@{assets/bootstrap-switch/bootstrap-switch.min.css}"/>
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+          integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -16,28 +25,13 @@
 
 
 <div class="card border-primary mb-3">
-    <h5 class="card-header">
-        <span class="text-white">Kiválasztott iktatás</span>
-    </h5>
+    <h2 class="card-header" align="center">Kiválasztott iktatás</h2>
     <div class="card-body">
-        <table class="table">
-            <thead class="thead">
-            <tr>
-                <th scope="col">Iktatás szám</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td th:text="${dataHolder.iktNum}"></td>
-            </tr>
-            </tbody>
-        </table>
+        <h4 align="center" th:text="${dataHolder.iktNum}"></h4>
     </div>
 </div>
 <div class="card border-primary mb-3">
-    <h5 class="card-header">
-        <span class="text-white">Címek</span>
-    </h5>
+    <h2 class="card-header" align="center">Címek</h2>
     <div class="card-body">
         <table class="table table-hover table-responsive-xl">
             <thead class="thead">
