@@ -31,6 +31,7 @@ public class DataHolderServiceImpl implements DataHolderService{
     public DataHolder saveDataHolder(DataHolder dataHolder) {
 
         holderRepository.saveAndFlush(dataHolder);
+        dataHolder.setCountNum((int) holderRepository.findAll().stream().count());
         dataHolder.setIktNumFront("BM_"+holderRepository.findAll().stream().count());
         dataHolder.setIktNum(dataHolder.getIktNumFront());
         return holderRepository.saveAndFlush(dataHolder);

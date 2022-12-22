@@ -58,7 +58,7 @@ public class Data {
     @Column(name="updated_at")
     @UpdateTimestamp
     private Timestamp updatedAt;
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @ManyToOne(fetch = FetchType.EAGER,optional = false)
     @JoinColumn(name="user_id",nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore

@@ -73,28 +73,9 @@ public class DataServiceImpl implements DataService {
         return dataRepo.save(matchingData);
     }
 
-
-
     @Override
-    public List<Data> getByKeyword(String keyWord) {
-        return dataRepo.findByKeyword(keyWord);
+    public Page<Data> getByKeyword(String keyword, Pageable pageable) {
+        return dataRepo.findByKeyword(keyword, pageable);
     }
-//
-//    @Override
-//    public List<Data> readByName(String name, Pageable page) {
-//        return dataRepo.findByUserAndNameContaining(userService.getLoggedInUser().getId(), name,page).toList();
-//    }
-
-//    @Override
-//    public List<Data> readByDate(Date startDate, Date endDate, Pageable page) {
-//        if(startDate==null){
-//            startDate = new Date(0);
-//        }
-//        if(endDate==null){
-//            endDate = new Date(System.currentTimeMillis());
-//        }
-//        Page<Data> pages = expenseRepo.findByUserAndDateBetween(userService.getLoggedInUser().getId(), startDate,endDate,page);
-//        return pages.toList();
-//    }
 
 }

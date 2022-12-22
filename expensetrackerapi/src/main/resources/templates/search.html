@@ -22,20 +22,16 @@
 <div class="card border-primary mb-3">
     <h2 class="card-header" align="center">Keresés</h2>
     <div class="card-body">
-        <div class="container">
-            <div class="row justify-content-start">
-                <div class="col">
+
                     <form th:action="@{/search}" method="get">
                         <input type="text" name="keyword" th:value="${keyword}"  placeholder="Keresés helyrajzi szám/Irányítószám/Város/Megbízó alapján" size="50" minlength="1">
                         <button type="submit" class="btn btn-info" >Keresés</button>
                      </form>
-                </div>
-                <div class="col">
+
                     <form th:action="@{/searchReset}" method="get">
                         <button type="submit" class="btn btn-info" >Alapállapot</button>
                     </form>
-                </div>
-            </div>
+
         </div>
 
         <table class="table table-bordered table-sm mt-2">

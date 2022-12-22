@@ -13,6 +13,6 @@ public interface DataService {
     Data getDataById(Long id);
     void deleteById(Long id);
     void saveData(Data data);
-    Data updateDataDetails(Long id, Data expense);
-    List<Data> getByKeyword(String hszNum);
+    Data updateDataDetails(Long id, Data data);
+    Page<Data> getByKeyword(String keyword,Pageable pageable);
 }

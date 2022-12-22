@@ -10,7 +10,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/home">Iktato rendszer</a>
     <a class="navbar-brand" href="#">Adatfelvitel</a>
-    <a class="navbar-brand" href="/search">Keresés</a>
+    <a class="navbar-brand" href="/search2">Keresés</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent">
         <span class="navbar-toggler-icon"></span>
@@ -52,6 +52,7 @@
 <div class="card border-primary mb-3">
     <h2 class="card-header" align="center">Adatrögzítés</h2>
     <div class="card-body">
+        <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
         <form class="col card p-3 mb-5" method="post" th:action="@{/submit}" th:object="${dataInfo}">
             <div class="container">
                 <div class="row">

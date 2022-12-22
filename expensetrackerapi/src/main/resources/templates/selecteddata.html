@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Kezdőlap</title>
+    <link rel="stylesheet" th:href="@{/bootstrap/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/assets/home.css}">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <form th:action="@{/removeSelectedDataFromSession}" method="POST" >
+        <button type="submit" class="btn btn-primary" th:name="dataIndex" th:value="${data.id}">Vissza</button>
+    </form>
+</nav>
+
+
+<div class="card border-primary mb-3">
+    <h5 class="card-header">
+        <span class="text-white">Kiválasztott aliktatás</span>
+    </h5>
+    <div class="card-body">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Jelenlegi iktatószám</div>
+                        </div>
+                        <input type="text" class="form-control" th:name="iktNum"
+                               th:value="${data.dataHolder.iktNum}">
+                    </div>
+                    <div class="input-group mb-2" >
+                        <label for="dataH">Új iktatószám csatolása</label>
+                        <select class="form-control " id="dataH" required >
+                            <option hidden value="">Válassz iktatószámot</option>
+                            <option
+                                th:each="data, rows : ${iktNumList}"
+                                th:text="${data.iktNum}"
+                                th:value="${data.id}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Helyrajziszám</div>
+                        </div>
+                        <input type="text" class="form-control" th:name="hszNum"
+                               th:value="${data.hszNum}">
+                    </div>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Irányítószám</div>
+                        </div>
+                        <input type="text" class="form-control" th:name="irNum"
+                               th:value="${data.irNum}">
+                    </div>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Város</div>
+                        </div>
+                        <input type="text" class="form-control" th:name="city"
+                               th:value="${data.city}">
+                    </div>
+
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Utca</div>
+                        </div>
+                        <input type="text" class="form-control" th:name="street"
+                               th:value="${data.street}">
+                    </div>
+
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Házszám</div>
+                        </div>
+                        <input type="text" class="form-control" th:name="streetNum"
+                               th:value="${data.streetNum}">
+                    </div>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Emelet</div>
+                        </div>
+                        <input type="text" class="form-control" th:name="floorNum"
+                               th:value="${data.floorNum}">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Ajtó</div>
+                        </div>
+                        <input type="text" class="form-control" th:name="doorNum"
+                               th:value="${data.doorNum}">
+                    </div>
+
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Megbízó</div>
+                            </div>
+                            <input type="text" class="form-control" th:name="principal"
+                                   th:value="${data.principal}">
+                        </div>
+
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Megbízó képviselője</div>
+                            </div>
+                            <input type="text" class="form-control" th:name="principalDelegate"
+                                   th:value="${data.principalDelegate}">
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Díj</div>
+                            </div>
+                            <input type="text" class="form-control" th:name="amount"
+                                   th:value="${data.amount}">
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Megbízó típus</div>
+                            </div>
+                            <input type="text" class="form-control" th:name="ig_category"
+                                   th:value="${data.ig_category}">
+                        </div>
+
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Szakértői típus</div>
+                                </div>
+                                <input type="text" class="form-control" th:name="va_category"
+                                       th:value="${data.va_category}">
+                            </div>
+
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Megjegyzés</div>
+                                </div>
+                                <input type="text" class="form-control" th:name="description"
+                                       th:value="${data.description}">
+                            </div>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Határidő</div>
+                                </div>
+                                <input type="text" class="form-control" th:name="date"
+                                       th:value="${data.date}">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div class="card border-primary mb-3">-->
+<!--    <h5 class="card-header">-->
+<!--        <span class="text-white">Címek</span>-->
+<!--    </h5>-->
+<!--    <div class="card-body">-->
+<!--        <table class="table table-hover table-responsive-xl">-->
+<!--            <thead class="thead">-->
+<!--            <tr>-->
+<!--                <th scope="col">Megtekintés</th>-->
+<!--                <th scope="col">Helyrajzi szám</th>-->
+<!--                <th scope="col">Irányítószám</th>-->
+<!--                <th scope="col">Város</th>-->
+<!--                <th scope="col">Utca</th>-->
+<!--                <th scope="col">Házszám</th>-->
+<!--                <th scope="col">Emelet</th>-->
+<!--                <th scope="col">Ajtó</th>-->
+<!--                <th scope="col">Megbízó</th>-->
+<!--                <th scope="col">Megbízó képviselője</th>-->
+<!--                <th scope="col">Díj</th>-->
+<!--                <th scope="col">Megbízó típus</th>-->
+<!--                <th scope="col">Szakértői típus</th>-->
+<!--                <th scope="col">Határidő</th>-->
+<!--                <th scope="col">Megjegyzés</th>-->
+<!--                <th scope="col">Állapot</th>-->
+<!--                <th scope="col">Műveletek</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr th:each="data, rows : ${datasList}">-->
+<!--                <form th:action="@{/selectedDataPost}" method="POST">-->
+<!--                    <button type="submit" class="btn btn-primary" th:name="dataIndex" th:value="${data.id}">Megtekintés</button>-->
+<!--                </form>-->
+<!--                <td th:text="${data.hszNum}"></td>-->
+<!--                <td th:text="${data.irNum}"></td>-->
+<!--                <td th:text="${data.city}"></td>-->
+<!--                <td th:text="${data.street}"></td>-->
+<!--                <td th:text="${data.streetNum}"></td>-->
+<!--                <td th:text="${data.floorNum}"></td>-->
+<!--                <td th:text="${data.doorNum}"></td>-->
+<!--                <td th:text="${data.principal}"></td>-->
+<!--                <td th:text="${data.principalDelegate}"></td>-->
+<!--                <td th:text="${data.amount}"></td>-->
+<!--                <td th:text="${data.ig_category}"></td>-->
+<!--                <td th:text="${data.va_category}"></td>-->
+<!--                <td th:text="${data.date}"></td>-->
+<!--                <td th:text="${data.description}">-->
+<!--                <td>-->
+<!--                    <div th:unless="${data.isDone}"><p>Folyamatban</p></div>-->
+<!--                    <div th:if="${data.isDone}"><p>Kész</p></div>-->
+<!--                </td>-->
+<!--                <td>-->
+<!--                    <form th:unless="${data.isDone}" th:action="@{/setDone}" method="post">-->
+<!--                        <button type="submit" class="btn btn-info" th:name="dataIndex" th:value="${data.id}">Kész</button>-->
+<!--                    </form>-->
+<!--                    <form th:if="${data.isDone}" th:action="@{/setNotDone}" method="post">-->
+<!--                        <button type="submit" class="btn btn-secondary" th:name="dataIndex" th:value="${data.id}">Folyamatban</button>-->
+<!--                    </form>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--    </div>-->
+<!--</div>-->
+</body>
+</html>

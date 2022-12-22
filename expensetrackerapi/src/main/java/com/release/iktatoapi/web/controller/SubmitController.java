@@ -2,16 +2,14 @@ package com.release.iktatoapi.web.controller;
 
 import com.release.iktatoapi.data.entity.Data;
 import com.release.iktatoapi.data.entity.DataHolder;
-import com.release.iktatoapi.data.entity.User;
 import com.release.iktatoapi.service.DataHolderService;
 import com.release.iktatoapi.service.DataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Controller
@@ -46,7 +44,8 @@ public class SubmitController {
     }
 
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
-    public String saveDataDetails(Model model, @ModelAttribute Data dataInfo){
+    public String saveDataDetails(Model model, @ModelAttribute Data dataInfo, RedirectAttributes redirectAttributes){
+        redirectAttributes.addFlashAttribute("success","Iktatás sikeresen rögzítve!");
         dataService.saveData(dataInfo);
         return "redirect:/submit";
     }

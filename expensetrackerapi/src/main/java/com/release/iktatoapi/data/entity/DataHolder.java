@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.Year;
 import java.util.List;
 
 @lombok.Data
@@ -17,11 +16,12 @@ public class DataHolder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToMany(targetEntity=Data.class,cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY, orphanRemoval = true)
+            fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "dataId", referencedColumnName = "id")
     private List<Data> dataStack;
     private String iktNumFront;
     private String iktNumEnd;
     private String iktNum;
+    private int countNum;
 
 }
