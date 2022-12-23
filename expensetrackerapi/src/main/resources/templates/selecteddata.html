@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Kezdőlap</title>
+    <title>Aliktatás</title>
     <link rel="stylesheet" th:href="@{/bootstrap/bootstrap.css}">
     <link rel="stylesheet" th:href="@{/assets/search.css}">
     <link th:rel="stylesheet" th:href="@{assets/bootstrap-switch/bootstrap-switch.min.css}"/>
@@ -26,6 +26,8 @@
 <div class="card border-primary mb-3">
     <h2 class="card-header" align="center">Kiválasztott aliktatás</h2>
     <div class="card-body">
+        <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
+        <form class="col card p-3 mb-5" method="post" th:action="@{/submitEdit}" th:object="${dataEditInfo}">
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -36,14 +38,14 @@
                         <input type="text" class="form-control" th:name="iktNum"
                                th:value="${data.dataHolder.iktNum}">
                     </div>
-                    <div class="input-group mb-2" >
+                    <div class="form-group" th:object="${idDataHolderValue}">
                         <label for="dataH">Új iktatószám csatolása</label>
-                        <select class="form-control " id="dataH" required >
+                        <select class="form-control " id="dataH" required th:field="*{idValue}">
                             <option hidden value="">Válassz iktatószámot</option>
                             <option
-                                th:each="data, rows : ${iktNumList}"
-                                th:text="${data.iktNum}"
-                                th:value="${data.id}">
+                                    th:each="data : ${datasList}"
+                                    th:text="${data.iktNum}"
+                                    th:value="${data.id}">
                             </option>
                         </select>
                     </div>
@@ -52,21 +54,21 @@
                             <div class="input-group-text">Helyrajziszám</div>
                         </div>
                         <input type="text" class="form-control" th:name="hszNum"
-                               th:value="${data.hszNum}">
+                                th:field="*{hszNum}">
                     </div>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
                             <div class="input-group-text">Irányítószám</div>
                         </div>
-                        <input type="text" class="form-control" th:name="irNum"
-                               th:value="${data.irNum}">
+                        <input id="irNum" name="irNum" type="text" class="form-control" th:name="irNum"
+                                th:field="*{irNum}">
                     </div>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
                             <div class="input-group-text">Város</div>
                         </div>
                         <input type="text" class="form-control" th:name="city"
-                               th:value="${data.city}">
+                               th:field="*{city}">
                     </div>
 
                     <div class="input-group mb-2">
@@ -74,7 +76,7 @@
                             <div class="input-group-text">Utca</div>
                         </div>
                         <input type="text" class="form-control" th:name="street"
-                               th:value="${data.street}">
+                                th:field="*{street}">
                     </div>
 
                     <div class="input-group mb-2">
@@ -82,14 +84,14 @@
                             <div class="input-group-text">Házszám</div>
                         </div>
                         <input type="text" class="form-control" th:name="streetNum"
-                               th:value="${data.streetNum}">
+                                th:field="*{streetNum}">
                     </div>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
                             <div class="input-group-text">Emelet</div>
                         </div>
                         <input type="text" class="form-control" th:name="floorNum"
-                               th:value="${data.floorNum}">
+                                th:field="*{floorNum}">
                     </div>
                 </div>
                 <div class="col">
@@ -98,7 +100,7 @@
                             <div class="input-group-text">Ajtó</div>
                         </div>
                         <input type="text" class="form-control" th:name="doorNum"
-                               th:value="${data.doorNum}">
+                                th:field="*{doorNum}">
                     </div>
 
                         <div class="input-group mb-2">
@@ -106,7 +108,7 @@
                                 <div class="input-group-text">Megbízó</div>
                             </div>
                             <input type="text" class="form-control" th:name="principal"
-                                   th:value="${data.principal}">
+                                    th:field="*{principal}">
                         </div>
 
                         <div class="input-group mb-2">
@@ -114,53 +116,68 @@
                                 <div class="input-group-text">Megbízó képviselője</div>
                             </div>
                             <input type="text" class="form-control" th:name="principalDelegate"
-                                   th:value="${data.principalDelegate}">
+                                    th:field="*{principalDelegate}">
                         </div>
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Díj</div>
                             </div>
                             <input type="text" class="form-control" th:name="amount"
-                                   th:value="${data.amount}">
+                                    th:field="*{amount}">
                         </div>
-                        <div class="input-group mb-2">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">Megbízó típus</div>
-                            </div>
-                            <input type="text" class="form-control" th:name="ig_category"
-                                   th:value="${data.ig_category}">
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                        <label for="ig_category" >Megbízó típus</label>
                         </div>
+                        <select class="form-control " id="ig_category" required th:field="*{ig_category}" >
+                            <option hidden value="" >Válassz megbízó típust</option>
+                            <option
+                                    th:each="igCategory : ${T(com.release.iktatoapi.data.entity.IgCategory).values()}"
+                                    th:text="${igCategory}"
+                                    th:value="${igCategory}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                        <label for="va_category">Szakértői típus</label>
+                        </div>
+                        <select class="form-control " id="va_category" required th:field="*{va_category}">
+                            <option hidden value="">Válassz szakértői típust</option>
+                            <option
+                                    th:each="vaCategory : ${T(com.release.iktatoapi.data.entity.VaCategory).values()}"
+                                    th:text="${vaCategory}"
+                                    th:value="${vaCategory}">
+                            </option>
+                        </select>
+                    </div>
 
-                            <div class="input-group mb-2">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">Szakértői típus</div>
-                                </div>
-                                <input type="text" class="form-control" th:name="va_category"
-                                       th:value="${data.va_category}">
-                            </div>
+
 
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">Megjegyzés</div>
                                 </div>
                                 <input type="text" class="form-control" th:name="description"
-                                       th:value="${data.description}">
+                                        th:field="*{description}">
                             </div>
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">Határidő</div>
                                 </div>
-                                <input type="text" class="form-control" th:name="date"
-                                       th:value="${data.date}">
+                                <input type="date" class="form-control" th:name="date"
+                                       th:field="*{date}">
                             </div>
 
                         </div>
                     </div>
+                    <input class="btn btn-primary" type="submit" value="Mentés">
                 </div>
-            </div>
-        </div>
+        </form>
     </div>
 </div>
+
+
 <!--<div class="card border-primary mb-3">-->
 <!--    <h5 class="card-header">-->
 <!--        <span class="text-white">Címek</span>-->

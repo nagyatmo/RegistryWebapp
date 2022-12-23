@@ -64,7 +64,7 @@ public class Data {
     @JsonIgnore
     private User user;
     private Boolean isDone;
-    @ManyToOne
-    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "dataHolder_id")
     private DataHolder dataHolder;
 }

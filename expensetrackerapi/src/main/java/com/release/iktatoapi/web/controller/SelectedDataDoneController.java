@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@SessionAttributes({"dataHolder", "datasList"})
 public class SelectedDataDoneController {
     @Autowired
     private DataService dataService;
@@ -16,9 +15,7 @@ public class SelectedDataDoneController {
 
     @ModelAttribute("setDoneData")
     public Data setSelectedDataToDone(@RequestParam("dataIndex") int dataIndex, Model model) {
-        Data selectedData = dataService.getAllData().get(dataIndex - 1);
-        model.addAttribute("dataHolder",selectedData.getDataHolder());
-        model.addAttribute("datasList",selectedData.getDataHolder().getDataStack());
+        Data selectedData = dataService.getDataById((long) dataIndex);
         selectedData.setIsDone(true);
         dataService.updateDataDetails(selectedData.getId(),selectedData);
         return selectedData;

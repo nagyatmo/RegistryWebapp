@@ -43,10 +43,10 @@ public class DataHolderServiceImpl implements DataHolderService{
     }
 
     @Override
-    public DataHolder updateIktNum(DataHolder dataHolder, Long id) {
+    public DataHolder updateIktNum(DataHolder dataHolder) {
         int year = Year.now().getValue();
         //newDataHolder.setDataStack(dataHolder.getDataStack()!=null ? dataHolder.getDataStack() : newDataHolder.getDataStack());
-        dataHolder.setIktNumEnd("_"+ dataService.getAllData().stream().filter(n->n.getDataHolder().getId().equals(id)).count() +"_"+year);
+        dataHolder.setIktNumEnd("_"+ dataService.getAllData().stream().filter(n->n.getDataHolder().getId().equals(dataHolder.getId())).count() +"_"+year);
         dataHolder.setIktNum(dataHolder.getIktNumFront()+dataHolder.getIktNumEnd());
         return holderRepository.save(dataHolder);
     }

@@ -15,10 +15,10 @@ public class SelectedDataHolderPostController {
     @Autowired
     private DataHolderService service;
 
-    @ModelAttribute("dataHolder")
+    @ModelAttribute("dataHolderAttr")
     public DataHolder addSelectedDataHolderToSession(@RequestParam("dataHolderIndex") int dataHolderIndex, HttpServletRequest request) {
         DataHolder selectedDataHolder = service.getAllDataHolder().get(dataHolderIndex-1);
-        request.getSession().setAttribute("dataHolder",selectedDataHolder);
+        request.getSession().setAttribute("dataHolderAttr",selectedDataHolder);
         return selectedDataHolder;
     }
 

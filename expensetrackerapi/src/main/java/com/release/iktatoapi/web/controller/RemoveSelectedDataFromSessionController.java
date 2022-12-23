@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 
 @Controller
-@SessionAttributes({"dataHolder", "datasList" })
+@SessionAttributes({"dataHolderAttr", "datasList" })
 public class RemoveSelectedDataFromSessionController {
 
     @Autowired
@@ -23,8 +23,8 @@ public class RemoveSelectedDataFromSessionController {
     @ModelAttribute("removeDataFromSession")
     public DataHolder setSelectedDataToDone(@RequestParam("dataIndex") int dataIndex, Model model, HttpServletRequest request) {
         request.getSession().removeAttribute("data");
-        DataHolder selectedDataHolder = dataService.getAllData().get(dataIndex - 1).getDataHolder();
-        model.addAttribute("dataHolder",selectedDataHolder);
+        DataHolder selectedDataHolder = dataService.getDataById((long) dataIndex).getDataHolder();
+        model.addAttribute("dataHolderAttr",selectedDataHolder);
         model.addAttribute("datasList",selectedDataHolder.getDataStack());
         return selectedDataHolder;
     }

@@ -9,6 +9,6 @@ public interface DataHolderService {
     DataHolder getDataHolderById(Long id);
     DataHolder saveDataHolder(DataHolder dataHolder);
     List<DataHolder> getAllDataHolder();
-    DataHolder updateIktNum(DataHolder dataHolder, Long id);
+    DataHolder updateIktNum(DataHolder dataHolder);
     void deleteById(Long id);
 }

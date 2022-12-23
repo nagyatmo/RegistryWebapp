@@ -23,9 +23,9 @@ public class DataHolderController {
 
     @ModelAttribute("datasList")
     public List<Data> addDatassOfSelectedDataHolderToSession(Model model, SessionStatus sessionStatus, HttpServletRequest request){
-        model.addAttribute("dataHolder",(DataHolder) request.getSession().getAttribute("dataHolder"));
+        model.addAttribute("dataHolderAttr",(DataHolder) request.getSession().getAttribute("dataHolderAttr"));
         List<Data> datasList = service.getAllData().stream()
-                .filter(dat -> dat.getDataHolder().getId().equals(((DataHolder) request.getSession().getAttribute("dataHolder")).getId()))
+                .filter(dat -> dat.getDataHolder().getId().equals(((DataHolder) request.getSession().getAttribute("dataHolderAttr")).getId()))
                 .collect(Collectors.toList());
         request.getSession().setAttribute("datasList",datasList);
         return datasList;

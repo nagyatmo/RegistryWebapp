@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 
 @Controller
-@SessionAttributes({"dataList", "dataHolder"})
+@SessionAttributes({"dataList", "dataHolderAttr"})
 public class SelectedDataPostController {
 
     @Autowired
@@ -19,7 +19,7 @@ public class SelectedDataPostController {
 
     @ModelAttribute("data")
     public Data addSelectedDataToSession(@RequestParam("dataIndex") int dataIndex, HttpServletRequest request) {
-        Data selectedData = service.getAllData().get(dataIndex-1);
+        Data selectedData = service.getDataById((long) dataIndex);
         request.getSession().setAttribute("data",selectedData);
         return selectedData;
     }

@@ -3,6 +3,7 @@ package com.release.iktatoapi.data.entity;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -15,9 +16,7 @@ public class DataHolder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToMany(targetEntity=Data.class,cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER, orphanRemoval = true)
-    @JoinColumn(name = "dataId", referencedColumnName = "id")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "dataHolder")
     private List<Data> dataStack;
     private String iktNumFront;
     private String iktNumEnd;

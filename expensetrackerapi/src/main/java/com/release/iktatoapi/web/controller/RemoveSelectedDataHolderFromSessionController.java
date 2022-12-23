@@ -13,7 +13,7 @@ public class RemoveSelectedDataHolderFromSessionController {
 
     @RequestMapping(value ="/removeSelectedDataHolderFromSession", method = RequestMethod.POST)
     public String removeselectedDataHolderFromSession(SessionStatus sessionStatus, HttpServletRequest request) {
-        request.getSession().removeAttribute("dataHolder");
+        request.getSession().removeAttribute("dataHolderAttr");
         request.getSession().removeAttribute("datasList");
         return "redirect:/search2";
     }

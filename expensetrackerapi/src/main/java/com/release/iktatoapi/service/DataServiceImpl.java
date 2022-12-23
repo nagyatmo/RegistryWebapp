@@ -52,12 +52,15 @@ public class DataServiceImpl implements DataService {
         data.setIsDone(false);
         dataRepo.saveAndFlush(data);
         data.getDataHolder().getDataStack().add(data);
-        dataHolderService.updateIktNum(data.getDataHolder(),data.getDataHolder().getId());
+        dataHolderService.updateIktNum(data.getDataHolder());
     }
 
     @Override
     public Data updateDataDetails(Long id, Data data) {
         Data matchingData = getDataById(id);
+        matchingData.setDataHolder(data.getDataHolder()!=null ? data.getDataHolder():matchingData.getDataHolder());
+        matchingData.setIsDone(data.getIsDone()!=null ? data.getIsDone():matchingData.getIsDone());
+        matchingData.setIrNum(data.getIrNum()!=null? data.getIrNum():matchingData.getIrNum());
         matchingData.setAddress(data.getAddress()!=null ? data.getAddress(): matchingData.getAddress());
         matchingData.setDate(data.getDate()!=null ? data.getDate():matchingData.getDate());
         matchingData.setAmount(data.getAmount()!=null ? data.getAmount():matchingData.getAmount());
