@@ -16,7 +16,7 @@ public class DataHolder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "dataHolder")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "dataHolder")
     private List<Data> dataStack;
     private String iktNumFront;
     private String iktNumEnd;
