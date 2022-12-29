@@ -53,6 +53,8 @@ public class DataServiceImpl implements DataService {
         dataRepo.saveAndFlush(data);
         data.getDataHolder().getDataStack().add(data);
         dataHolderService.updateIktNum(data.getDataHolder());
+        data.setDataIktNum(data.getDataHolder().getIktNum());
+        dataRepo.saveAndFlush(data);
     }
 
     @Override
@@ -62,6 +64,8 @@ public class DataServiceImpl implements DataService {
         matchingData.setIsDone(data.getIsDone()!=null ? data.getIsDone():matchingData.getIsDone());
         matchingData.setIrNum(data.getIrNum()!=null? data.getIrNum():matchingData.getIrNum());
         matchingData.setAddress(data.getAddress()!=null ? data.getAddress(): matchingData.getAddress());
+        matchingData.setStreet(data.getStreet()!=null ? data.getStreet(): matchingData.getStreet());
+        matchingData.setStreetNum(data.getStreetNum()!=null ? data.getStreetNum(): matchingData.getStreetNum());
         matchingData.setDate(data.getDate()!=null ? data.getDate():matchingData.getDate());
         matchingData.setAmount(data.getAmount()!=null ? data.getAmount():matchingData.getAmount());
         matchingData.setDescription(data.getDescription()!=null ? data.getDescription(): matchingData.getDescription());
@@ -73,6 +77,7 @@ public class DataServiceImpl implements DataService {
         matchingData.setVa_category(data.getVa_category()!=null ? data.getVa_category(): matchingData.getVa_category());
         matchingData.setPrincipal(data.getPrincipal()!=null ? data.getPrincipal(): matchingData.getPrincipal());
         matchingData.setPrincipalDelegate(data.getPrincipalDelegate()!=null ? data.getPrincipalDelegate(): matchingData.getPrincipalDelegate());
+        matchingData.setDataIktNum(matchingData.getDataHolder().getIktNum());
         return dataRepo.save(matchingData);
     }
 

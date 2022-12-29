@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
           integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link th:rel="stylesheet" th:href="@{/assets/izitoast/css/iziToast.css} "/>
     <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </head>
@@ -26,7 +27,7 @@
 <div class="card border-primary mb-3">
     <h2 class="card-header" align="center">Kiválasztott aliktatás</h2>
     <div class="card-body">
-        <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
+        <div class="alert alert-primary" align="center" role="alert" th:text="${success}" th:if="${success}"></div>
         <form class="col card p-3 mb-5" method="post" th:action="@{/submitEdit}" th:object="${dataEditInfo}">
         <div class="container">
             <div class="row">
@@ -39,13 +40,16 @@
                                th:value="${data.dataHolder.iktNum}">
                     </div>
                     <div class="form-group" th:object="${idDataHolderValue}">
-                        <label for="dataH">Új iktatószám csatolása</label>
-                        <select class="form-control " id="dataH" required th:field="*{idValue}">
-                            <option hidden value="">Válassz iktatószámot</option>
+                    <label for="dataH">Új iktatószám csatolása</label>
+                        <select class="form-control " id="dataH" name="idDataHolderValue" required th:field="*{idValue}">
                             <option
-                                    th:each="data : ${datasList}"
-                                    th:text="${data.iktNum}"
-                                    th:value="${data.id}">
+                                    th:value="${data.dataHolder.id}"
+                                    >Nincs változtatás
+                            </option>
+                            <option
+                                    th:each="datas : ${datasList}"
+                                    th:text="${datas.iktNum}"
+                                    th:value="${datas.id}">
                             </option>
                         </select>
                     </div>
@@ -176,70 +180,9 @@
         </form>
     </div>
 </div>
-
-
-<!--<div class="card border-primary mb-3">-->
-<!--    <h5 class="card-header">-->
-<!--        <span class="text-white">Címek</span>-->
-<!--    </h5>-->
-<!--    <div class="card-body">-->
-<!--        <table class="table table-hover table-responsive-xl">-->
-<!--            <thead class="thead">-->
-<!--            <tr>-->
-<!--                <th scope="col">Megtekintés</th>-->
-<!--                <th scope="col">Helyrajzi szám</th>-->
-<!--                <th scope="col">Irányítószám</th>-->
-<!--                <th scope="col">Város</th>-->
-<!--                <th scope="col">Utca</th>-->
-<!--                <th scope="col">Házszám</th>-->
-<!--                <th scope="col">Emelet</th>-->
-<!--                <th scope="col">Ajtó</th>-->
-<!--                <th scope="col">Megbízó</th>-->
-<!--                <th scope="col">Megbízó képviselője</th>-->
-<!--                <th scope="col">Díj</th>-->
-<!--                <th scope="col">Megbízó típus</th>-->
-<!--                <th scope="col">Szakértői típus</th>-->
-<!--                <th scope="col">Határidő</th>-->
-<!--                <th scope="col">Megjegyzés</th>-->
-<!--                <th scope="col">Állapot</th>-->
-<!--                <th scope="col">Műveletek</th>-->
-<!--            </tr>-->
-<!--            </thead>-->
-<!--            <tbody>-->
-<!--            <tr th:each="data, rows : ${datasList}">-->
-<!--                <form th:action="@{/selectedDataPost}" method="POST">-->
-<!--                    <button type="submit" class="btn btn-primary" th:name="dataIndex" th:value="${data.id}">Megtekintés</button>-->
-<!--                </form>-->
-<!--                <td th:text="${data.hszNum}"></td>-->
-<!--                <td th:text="${data.irNum}"></td>-->
-<!--                <td th:text="${data.city}"></td>-->
-<!--                <td th:text="${data.street}"></td>-->
-<!--                <td th:text="${data.streetNum}"></td>-->
-<!--                <td th:text="${data.floorNum}"></td>-->
-<!--                <td th:text="${data.doorNum}"></td>-->
-<!--                <td th:text="${data.principal}"></td>-->
-<!--                <td th:text="${data.principalDelegate}"></td>-->
-<!--                <td th:text="${data.amount}"></td>-->
-<!--                <td th:text="${data.ig_category}"></td>-->
-<!--                <td th:text="${data.va_category}"></td>-->
-<!--                <td th:text="${data.date}"></td>-->
-<!--                <td th:text="${data.description}">-->
-<!--                <td>-->
-<!--                    <div th:unless="${data.isDone}"><p>Folyamatban</p></div>-->
-<!--                    <div th:if="${data.isDone}"><p>Kész</p></div>-->
-<!--                </td>-->
-<!--                <td>-->
-<!--                    <form th:unless="${data.isDone}" th:action="@{/setDone}" method="post">-->
-<!--                        <button type="submit" class="btn btn-info" th:name="dataIndex" th:value="${data.id}">Kész</button>-->
-<!--                    </form>-->
-<!--                    <form th:if="${data.isDone}" th:action="@{/setNotDone}" method="post">-->
-<!--                        <button type="submit" class="btn btn-secondary" th:name="dataIndex" th:value="${data.id}">Folyamatban</button>-->
-<!--                    </form>-->
-<!--                </td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
-<!--        </table>-->
-<!--    </div>-->
-<!--</div>-->
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/izitoast/js/iziToast.min.js}"></script>
 </body>
 </html>

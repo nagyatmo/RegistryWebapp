@@ -66,4 +66,6 @@ public class Data {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "dataHolder_id")
     private DataHolder dataHolder;
+    @Column(name="iktNum")
+    private String dataIktNum;
 }

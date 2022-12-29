@@ -44,6 +44,7 @@ public class DataController {
             dataService.updateDataDetails(currentSessionData.getId(),dataEditInfo);
             dataHolderService.updateIktNum(oldDataHolder);
             dataHolderService.updateIktNum(newDataHolder);
+            dataService.updateDataDetails(currentSessionData.getId(),dataEditInfo);
         }else {
             dataService.updateDataDetails(currentSessionData.getId(), dataEditInfo);
         }

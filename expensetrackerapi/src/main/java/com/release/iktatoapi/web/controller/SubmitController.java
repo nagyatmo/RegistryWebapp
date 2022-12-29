@@ -23,16 +23,18 @@ public class SubmitController {
 
 
     @PostMapping("/generateDataHolder")
-    public String generateDataHolder(){
+    public String generateDataHolder(RedirectAttributes redirectAttributes){
         DataHolder newDataHolder = new DataHolder();
         dataHolderService.saveDataHolder(newDataHolder);
+        redirectAttributes.addFlashAttribute("generate","Iktatószám sikeresen létrehozva!");
         return "redirect:/submit";
     }
     @PostMapping("/deleteDataHolder")
-    public String deleteDataHolder(Model model, @ModelAttribute Data dataInfo){
+    public String deleteDataHolder(Model model, @ModelAttribute Data dataInfo, RedirectAttributes redirectAttributes){
         if(dataInfo.getDataHolder().getDataStack().size()==0) {
             dataHolderService.deleteById(dataInfo.getDataHolder().getId());
         }
+        redirectAttributes.addFlashAttribute("delete","Iktatószám sikeresen törölve!");
         return "redirect:/submit";
     }
 

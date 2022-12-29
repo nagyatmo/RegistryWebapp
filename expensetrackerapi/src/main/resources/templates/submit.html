@@ -28,6 +28,8 @@
 <div class="card border-primary mb-3">
     <h2 class="card-header" align="center">Iktatószám generálás</h2>
     <div class="card-body">
+        <div class="alert alert-primary" align="center" role="alert" th:text="${generate}" th:if="${generate}"></div>
+
         <form class="col card p-3 mb-5" method="post" th:action="@{/generateDataHolder}">
             <div class="container">
                 <input class="btn btn-primary" type="submit" value="Új iktatószám generálása">
@@ -36,6 +38,7 @@
     </div>
     <h2 class="card-header" align="center">Iktatószám Törlése</h2>
     <div class="card-body">
+        <div class="alert alert-primary" align="center" role="alert" th:text="${delete}" th:if="${delete}"></div>
         <form class="col card p-3 mb-5" method="post" th:action="@{/deleteDataHolder}" th:object="${dataInfo}">
             <div class="container">
                 <div class="row">
@@ -61,7 +64,7 @@
 <div class="card border-primary mb-3">
     <h2 class="card-header" align="center">Adatrögzítés</h2>
     <div class="card-body">
-        <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
+        <div class="alert alert-primary" align="center" role="alert" th:text="${success}" th:if="${success}"></div>
         <form class="col card p-3 mb-5" method="post" th:action="@{/submit}" th:object="${dataInfo}">
             <div class="container">
                 <div class="row">
@@ -79,25 +82,25 @@
                         </div>
                             <div class="form-group">
                                 <label for="hszNum">Helyzajzi szám</label>
-                                <input class="form-control" id="hszNum" placeholder="Helyrajzi szám" required
+                                <input class="form-control" id="hszNum" placeholder="Helyrajzi szám"
                                        th:field="*{hszNum}"
                                        type="text"/>
                             </div>
                             <div class="form-group">
                                 <label for="irNum">Irányítószám</label>
-                                <input class="form-control" id="irNum" placeholder="Irányítószám" required
+                                <input class="form-control" id="irNum" placeholder="Irányítószám"
                                        th:field="*{irNum}"
                                        type="text"/>
                             </div>
                             <div class="form-group">
                                 <label for="city">Város</label>
-                                <input class="form-control" id="city" placeholder="Város" required
+                                <input class="form-control" id="city" placeholder="Város"
                                        th:field="*{city}"
                                        type="text"/>
                             </div>
                             <div class="form-group">
                                 <label for="street">Utca</label>
-                                <input class="form-control" id="street" placeholder="Utca" required
+                                <input class="form-control" id="street" placeholder="Utca"
                                        th:field="*{street}"
                                        type="text"/>
                             </div>
@@ -105,25 +108,25 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="streetNum">Házszám</label>
-                            <input class="form-control" id="streetNum" placeholder="Házszám" required
+                            <input class="form-control" id="streetNum" placeholder="Házszám"
                                    th:field="*{streetNum}"
                                    type="text"/>
                         </div>
                         <div class="form-group">
                             <label for="floorNum">Emelet</label>
-                            <input class="form-control" id="floorNum" placeholder="Emelet" required
+                            <input class="form-control" id="floorNum" placeholder="Emelet"
                                    th:field="*{floorNum}"
                                    type="text"/>
                         </div>
                         <div class="form-group">
                             <label for="doorNum">Ajtó</label>
-                            <input class="form-control" id="doorNum" placeholder="Ajtószám" required
+                            <input class="form-control" id="doorNum" placeholder="Ajtószám"
                                    th:field="*{doorNum}"
                                    type="text"/>
                         </div>
                         <div class="form-group">
                             <label for="principal">Megbízó</label>
-                            <input class="form-control" id="principal" placeholder="Megbízó" required
+                            <input class="form-control" id="principal" placeholder="Megbízó"
                                    th:field="*{principal}"
                                    type="text"/>
                         </div>
@@ -131,25 +134,25 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="principalDelegate">Megbízó képviselője</label>
-                            <input class="form-control" id="principalDelegate" placeholder="Megbízó képviselője" required
+                            <input class="form-control" id="principalDelegate" placeholder="Megbízó képviselője"
                                    th:field="*{principalDelegate}"
                                    type="text"/>
                         </div>
                         <div class="form-group">
                             <label for="amount">Díj</label>
-                            <input class="form-control" id="amount" placeholder="Díj" required
+                            <input class="form-control" id="amount" placeholder="Díj"
                                    th:field="*{amount}"
                                    type="text"/>
                         </div>
                         <div class="form-group">
                             <label for="date">Határidő</label>
-                            <input class="form-control" id="date" placeholder="Határidő" required
+                            <input class="form-control" id="date" placeholder="Határidő"
                                    th:field="*{date}"
                                    type="date"/>
                         </div>
                         <div class="form-group">
                             <label for="ig_category">Megbízó típus</label>
-                            <select class="form-control " id="ig_category" required th:field="*{ig_category}">
+                            <select class="form-control " id="ig_category" th:field="*{ig_category}">
                                 <option hidden value="">Válassz megbízó típust</option>
                                 <option
                                         th:each="igCategory : ${T(com.release.iktatoapi.data.entity.IgCategory).values()}"
@@ -162,7 +165,7 @@
                     <div class="col">
                             <div class="form-group">
                                 <label for="va_category">Szakértői típus</label>
-                                <select class="form-control " id="va_category" required th:field="*{va_category}">
+                                <select class="form-control " id="va_category" th:field="*{va_category}">
                                     <option hidden value="">Válassz szakértői típust</option>
                                     <option
                                             th:each="vaCategory : ${T(com.release.iktatoapi.data.entity.VaCategory).values()}"
@@ -173,7 +176,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="description">Megjegyzés</label>
-                                <input class="form-control" id="description" placeholder="Megjegyzés" required
+                                <input class="form-control" id="description" placeholder="Megjegyzés"
                                        th:field="*{description}"
                                        type="text"/>
                             </div>
