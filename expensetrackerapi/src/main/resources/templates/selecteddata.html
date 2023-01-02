@@ -155,9 +155,6 @@
                             </option>
                         </select>
                     </div>
-
-
-
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">Megjegyzés</div>
@@ -172,12 +169,35 @@
                                 <input type="date" class="form-control" th:name="date"
                                        th:field="*{date}">
                             </div>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Feltöltött fájl</div>
+                        </div>
+                        <input type="text" class="form-control" th:name="name" disabled
+                               th:field="*{name}">
+                    </div>
 
                         </div>
                     </div>
                     <input class="btn btn-primary" type="submit" value="Mentés">
                 </div>
         </form>
+        <section class="my-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 mx-auto">
+                        <h4>Fájl feltöltése</h4>
+                        <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>
+                        <form method="post" th:action="@{/upload}" enctype="multipart/form-data" th:object="${dataEditInfo}">
+                            <div class="form-group">
+                                <input type="file" name="file" class="form-control-file">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Feltöltés</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 </div>
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>

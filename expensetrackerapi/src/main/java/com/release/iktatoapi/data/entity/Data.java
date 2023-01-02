@@ -68,4 +68,8 @@ public class Data {
     private DataHolder dataHolder;
     @Column(name="iktNum")
     private String dataIktNum;
+    @Lob
+    private byte[] data;
+    private String type;
+    private String name;
 }

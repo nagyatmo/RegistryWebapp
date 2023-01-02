@@ -9,8 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 
+import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
@@ -84,6 +87,15 @@ public class DataServiceImpl implements DataService {
     @Override
     public Page<Data> getByKeyword(String keyword, Pageable pageable) {
         return dataRepo.findByKeyword(keyword, pageable);
+    }
+
+    @Override
+    public Data store(MultipartFile file, Data data) throws IOException {
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        data.setData(file.getBytes());
+        data.setName(fileName);
+        data.setType(file.getContentType());
+        return dataRepo.save(data);
     }
 
 }

@@ -51,6 +51,7 @@
                 <th scope="col">Szakértői típus</th>
                 <th scope="col">Határidő</th>
                 <th scope="col">Megjegyzés</th>
+                <th scope="col">Fájl</th>
                 <th scope="col">Állapot</th>
                 <th scope="col">Műveletek</th>
                 <th scope="col">Törlés</th>
@@ -76,7 +77,12 @@
                 <td th:text="${data.ig_category}"></td>
                 <td th:text="${data.va_category}"></td>
                 <td th:text="${data.date}"></td>
-                <td th:text="${data.description}">
+                <td th:text="${data.description}"></td>
+                <td>
+                    <form method="get" th:action="@{/download}" enctype="multipart/form-data">
+                        <button type="submit" class="btn btn-info" th:name="id" th:value="${data.id}">Letöltés</button>
+                    </form>
+                </td>
                 <td>
                     <div th:unless="${data.isDone}"><p>Folyamatban</p></div>
                     <div th:if="${data.isDone}"><p>Kész</p></div>

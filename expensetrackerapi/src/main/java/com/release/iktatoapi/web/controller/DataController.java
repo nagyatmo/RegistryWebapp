@@ -6,13 +6,19 @@ import com.release.iktatoapi.data.entity.LongIdModel;
 import com.release.iktatoapi.service.DataHolderService;
 import com.release.iktatoapi.service.DataService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Optional;
 
 
 @Controller
@@ -23,6 +29,8 @@ public class DataController {
 
     @Autowired
     private DataService dataService;
+
+    private final String UPLOAD_DIR = "./uploads/";
 
 
     @ModelAttribute("data")
@@ -51,6 +59,39 @@ public class DataController {
         return "redirect:/selecteddata";
     }
 
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    public String uploadFile(@RequestParam("file") MultipartFile file , @ModelAttribute Data dataEditInfo, RedirectAttributes redirectAttributes,
+                             HttpServletRequest request) {
+        Data currentSessionData = addSelectedDataToSession(request);
+        if (file.isEmpty()) {
+            redirectAttributes.addFlashAttribute("message", "Adjon hozzá fájlt a feltöltéshez.");
+            return "redirect:selecteddata";
+        }
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        try {
+            dataService.store(file, dataEditInfo);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        redirectAttributes.addFlashAttribute("message", "Sikeresen feltöltött fájl: " + fileName + '!');
+
+        return "redirect:selecteddata";
+    }
+
+    @GetMapping("/download")
+    public void downloadFile(@Param("id") Long id, HttpServletResponse response) throws IOException {
+        Optional<Data> temp = Optional.ofNullable(dataService.getDataById(id));
+        if(temp.isPresent()) {
+            Data data = temp.get();
+            response.setContentType("application/octet-stream");
+            String headerKey = "Content-Disposition";
+            String headerValue = "attachment; filename = "+data.getName();
+            response.setHeader(headerKey, headerValue);
+            ServletOutputStream outputStream = response.getOutputStream();
+            outputStream.write(data.getData());
+            outputStream.close();
+        }
+    }
 
     @RequestMapping(value = "/selecteddata", method = RequestMethod.GET)
     public String showSelectedDataPage(Model model, HttpServletRequest request) {
