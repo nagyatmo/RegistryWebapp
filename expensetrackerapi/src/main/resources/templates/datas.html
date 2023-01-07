@@ -76,7 +76,7 @@
                 <td th:text="${data.amount}"></td>
                 <td th:text="${data.ig_category}"></td>
                 <td th:text="${data.va_category}"></td>
-                <td th:text="${data.date}"></td>
+                <td th:style="${data.urgent} ? 'color: red;' : 'color: black;'" th:text="${data.date}"></td>
                 <td th:text="${data.description}"></td>
                 <td>
                     <form method="get" th:action="@{/download}" enctype="multipart/form-data">

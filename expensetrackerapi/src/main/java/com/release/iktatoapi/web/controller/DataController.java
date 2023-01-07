@@ -79,7 +79,7 @@ public class DataController {
     }
 
     @GetMapping("/download")
-    public void downloadFile(@Param("id") Long id, HttpServletResponse response) throws IOException {
+    public String downloadFile(@Param("id") Long id, HttpServletResponse response) throws IOException {
         Optional<Data> temp = Optional.ofNullable(dataService.getDataById(id));
         if(temp.isPresent()) {
             Data data = temp.get();
@@ -91,6 +91,7 @@ public class DataController {
             outputStream.write(data.getData());
             outputStream.close();
         }
+        return "redirect:selecteddata";
     }
 
     @RequestMapping(value = "/selecteddata", method = RequestMethod.GET)

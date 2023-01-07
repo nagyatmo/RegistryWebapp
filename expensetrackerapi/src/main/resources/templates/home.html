@@ -5,6 +5,9 @@
 <title>Kezdőlap</title>
 	<link rel="stylesheet" th:href="@{/bootstrap/bootstrap.css}">
 	<link rel="stylesheet" th:href="@{/assets/search.css}">
+	<link rel="stylesheet" th:href="@{/assets/nav.css}">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.3.1/css/all.min.css" rel="stylesheet">
 	<link th:rel="stylesheet" th:href="@{assets/bootstrap-switch/bootstrap-switch.min.css}"/>
 	<link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
 	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
@@ -17,89 +20,369 @@
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<a class="navbar-brand" href="#">Iktato rendszer</a>
-		<a class="navbar-brand" href="/submit">Adatfelvitel</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarSupportedContent">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<a class="navbar-brand" href="/search2">Keresés</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarSupportedContent">
-			<span class="navbar-toggler-icon"></span>
-		</button>
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item active">
+				<a class="nav-link" href="#">Kezdőlap</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/submit">Adatfelvitel</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/search2">Keresés</a>
+			</li>
+		</ul>
 	</nav>
-
-
-	<div class="card border-primary mb-3">
-		<h5 class="card-header">
-			<span class="text-black">Ön adatai</span>
-		</h5>
-		<div class="card-body">
-				<div class="input-group mb-2">
-					<div class="input-group-prepend">
-						<div class="input-group-text">Email</div>
-					</div>
-					<input type="text" class="form-control" th:name="userEmail"
-						th:value="${user.email}">
-				</div>
-			<div class="input-group mb-2">
-				<div class="input-group-prepend">
-					<div class="input-group-text">Teljes bevétel</div>
-				</div>
-				<input type="text" class="form-control" th:name="amountIncome"
-					   th:value="${amountIncome}">
-			</div>
-			<div class="input-group mb-2">
-				<div class="input-group-prepend">
-					<div class="input-group-text">Megbízások száma</div>
-				</div>
-				<input type="text" class="form-control" th:name="amountOrder"
-					   th:value="${amountOrder}">
-			</div>
-		</div>
-	</div>
 
 
 <!--	<div class="card border-primary mb-3">-->
 <!--		<h5 class="card-header">-->
-<!--			<span class="text-white">Wagers</span>-->
+<!--			<span class="text-black">Ön adatai</span>-->
 <!--		</h5>-->
 <!--		<div class="card-body">-->
-<!--			<table class="table">-->
-<!--				<thead class="thead">-->
-<!--					<tr>-->
-<!--						<th scope="col">Remove wager</th>-->
-<!--						<th scope="col">Event title</th>-->
-<!--						<th scope="col">Event type</th>-->
-<!--						<th scope="col">Bet type</th>-->
-<!--						<th scope="col">Outcome value</th>-->
-<!--						<th scope="col">Outcome odd</th>-->
-<!--						<th scope="col">Wager amount</th>-->
-<!--						<th scope="col">Winner</th>-->
-<!--						<th scope="col">Processed</th>-->
-<!--					</tr>-->
-<!--				</thead>-->
-<!--				<tbody>-->
-<!--					<tr th:each="wager, rows : ${wagers}">-->
-<!--						<td>-->
-<!--							<form th:action="@{/removeWagerPost}" method="POST">-->
-<!--								<button type="submit" class="btn btn-primary"-->
-<!--									th:name="wagerIndex" th:value="${rows.count}">Remove</button>-->
-<!--							</form>-->
-<!--						</td>-->
-<!--						<td th:text="${wager.outcome.bet.event.title}"></td>-->
-<!--						<td th:text="${wager.outcome.bet.description}"></td>-->
-<!--						<td th:text="${wager.outcome.description}"></td>-->
-<!--						<td th:text="${wager.outcome.odd}"></td>-->
-<!--						<td th:text="${wager.amount}"></td>-->
-<!--						<td th:text="${wager.win}"></td>-->
-<!--						<td th:text="${wager.processed}"></td>-->
-<!--					</tr>-->
-<!--				</tbody>-->
-<!--			</table>-->
+<!--				<div class="input-group mb-2">-->
+<!--					<div class="input-group-prepend">-->
+<!--						<div class="input-group-text">Email</div>-->
+<!--					</div>-->
+<!--					<input type="text" class="form-control" th:name="userEmail"-->
+<!--						th:value="${user.email}">-->
+<!--				</div>-->
+<!--			<div class="input-group mb-2">-->
+<!--				<div class="input-group-prepend">-->
+<!--					<div class="input-group-text">Teljes bevétel</div>-->
+<!--				</div>-->
+<!--				<input type="text" class="form-control" th:name="amountIncome"-->
+<!--					   th:value="${amountIncome}">-->
+<!--			</div>-->
+<!--			<div class="input-group mb-2">-->
+<!--				<div class="input-group-prepend">-->
+<!--					<div class="input-group-text">Megbízások száma</div>-->
+<!--				</div>-->
+<!--				<input type="text" class="form-control" th:name="amountOrder"-->
+<!--					   th:value="${amountOrder}">-->
+<!--			</div>-->
 <!--		</div>-->
 <!--	</div>-->
+	<div class="main-content justify-content-center">
+		<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+			<div class="container-fluid">
+				<h4 class="mb-5 text-black">Összes megbízás - 2023 - éves statisztika</h4>
+				<div class="header-body">
+					<div class="row">
+						<div class="col-xl-3 col-lg-6">
+							<div class="card card-stats mb-4 mb-xl-0">
+								<div class="card-body">
+									<div class="row">
+										<div class="col">
+											<h5 class="card-title text-uppercase text-muted mb-0">Bírósági</h5>
+										</div>
+										<div class="col">
+											<h5 class="card-title text-uppercase text-muted mb-0" >Kirendelés</h5>
+											<span class="h2 font-weight-bold mb-0" th:text="${amountOrderBir}"></span>
+										</div>
+										<div class="col-auto">
+											<div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+												<i class="fas fa-chart-bar"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-3 col-lg-6">
+							<div class="card card-stats mb-4 mb-xl-0">
+								<div class="card-body">
+									<div class="row">
+										<div class="col">
+											<h5 class="card-title text-uppercase text-muted mb-0">Ebből kész</h5>
+											<span class="h2 font-weight-bold mb-0" th:text="${amountOrderBirDone}"></span>
+										</div>
+										<div class="col-auto">
+											<div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+												<i class="fas fa-chart-pie"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-3 col-lg-6">
+							<div class="card card-stats mb-4 mb-xl-0">
+								<div class="card-body">
+									<div class="row">
+										<div class="col">
+											<h5 class="card-title text-uppercase text-muted mb-0">Bevétel</h5>
+											<span class="h2 font-weight-bold mb-0" th:text="${amountIncomeBir}"></span>
+										</div>
+										<div class="col-auto">
+											<div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+												<i class="fas fa-users"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="main-content justify-content-center">
+		<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+			<div class="container-fluid">
+				<div class="header-body">
+					<div class="row">
+						<div class="col-xl-3 col-lg-6">
+							<div class="card card-stats mb-4 mb-xl-0">
+								<div class="card-body">
+									<div class="row">
+										<div class="col">
+											<h5 class="card-title text-uppercase text-muted mb-0">Rendőrségi</h5>
+										</div>
+										<div class="col">
+											<h5 class="card-title text-uppercase text-muted mb-0">Kirendelés</h5>
+											<span class="h2 font-weight-bold mb-0" th:text="${amountOrderRen}"></span>
+										</div>
+										<div class="col-auto">
+											<div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+												<i class="fas fa-chart-bar"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-3 col-lg-6">
+							<div class="card card-stats mb-4 mb-xl-0">
+								<div class="card-body">
+									<div class="row">
+										<div class="col">
+											<h5 class="card-title text-uppercase text-muted mb-0">Ebből kész</h5>
+											<span class="h2 font-weight-bold mb-0" th:text="${amountOrderRenDone}"></span>
+										</div>
+										<div class="col-auto">
+											<div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+												<i class="fas fa-chart-pie"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-3 col-lg-6">
+							<div class="card card-stats mb-4 mb-xl-0">
+								<div class="card-body">
+									<div class="row">
+										<div class="col">
+											<h5 class="card-title text-uppercase text-muted mb-0">Bevétel</h5>
+											<span class="h2 font-weight-bold mb-0" th:text="${amountIncomeRen}"></span>
+										</div>
+										<div class="col-auto">
+											<div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+												<i class="fas fa-users"></i>
+											</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+			</div>
+		</div>
+	</div>
+	<div class="main-content justify-content-center">
+		<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+			<div class="container-fluid">
+				<div class="header-body">
+					<div class="row">
+						<div class="col-xl-3 col-lg-6">
+							<div class="card card-stats mb-4 mb-xl-0">
+								<div class="card-body">
+									<div class="row">
+										<div class="col">
+											<h5 class="card-title text-uppercase text-muted mb-0">Közjegyzői</h5>
+										</div>
+										<div class="col">
+											<h5 class="card-title text-uppercase text-muted mb-0">Kirendelés</h5>
+											<span class="h2 font-weight-bold mb-0" th:text="${amountOrderKoz}"></span>
+										</div>
+										<div class="col-auto">
+											<div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+												<i class="fas fa-chart-bar"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-3 col-lg-6">
+							<div class="card card-stats mb-4 mb-xl-0">
+								<div class="card-body">
+									<div class="row">
+										<div class="col">
+											<h5 class="card-title text-uppercase text-muted mb-0">Ebből kész</h5>
+											<span class="h2 font-weight-bold mb-0" th:text="${amountOrderKozDone}"></span>
+										</div>
+										<div class="col-auto">
+											<div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+												<i class="fas fa-chart-pie"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-3 col-lg-6">
+							<div class="card card-stats mb-4 mb-xl-0">
+								<div class="card-body">
+									<div class="row">
+										<div class="col">
+											<h5 class="card-title text-uppercase text-muted mb-0">Bevétel</h5>
+											<span class="h2 font-weight-bold mb-0" th:text="${amountIncomeKoz}"></span>
+										</div>
+										<div class="col-auto">
+											<div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+												<i class="fas fa-users"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="main-content justify-content-center">
+		<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+			<div class="container-fluid">
+				<div class="header-body">
+					<div class="row">
+						<div class="col-xl-3 col-lg-6">
+							<div class="card card-stats mb-4 mb-xl-0">
+								<div class="card-body">
+									<div class="row">
+										<div class="col">
+											<h5 class="card-title text-uppercase text-muted mb-0">Hatósági</h5>
+										</div>
+										<div class="col">
+											<h5 class="card-title text-uppercase text-muted mb-0">Kirendelés</h5>
+											<span class="h2 font-weight-bold mb-0" th:text="${amountOrderHat}"></span>
+										</div>
+										<div class="col-auto">
+											<div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+												<i class="fas fa-chart-bar"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-3 col-lg-6">
+							<div class="card card-stats mb-4 mb-xl-0">
+								<div class="card-body">
+									<div class="row">
+										<div class="col">
+											<h5 class="card-title text-uppercase text-muted mb-0">Ebből kész</h5>
+											<span class="h2 font-weight-bold mb-0" th:text="${amountOrderHatDone}"></span>
+										</div>
+										<div class="col-auto">
+											<div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+												<i class="fas fa-chart-pie"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-3 col-lg-6">
+							<div class="card card-stats mb-4 mb-xl-0">
+								<div class="card-body">
+									<div class="row">
+										<div class="col">
+											<h5 class="card-title text-uppercase text-muted mb-0">Bevétel</h5>
+											<span class="h2 font-weight-bold mb-0" th:text="${amountIncomeHat}"></span>
+										</div>
+										<div class="col-auto">
+											<div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+												<i class="fas fa-users"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="main-content justify-content-center">
+		<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+			<div class="container-fluid">
+				<div class="header-body">
+					<div class="row">
+						<div class="col-xl-3 col-lg-6">
+							<div class="card card-stats mb-4 mb-xl-0">
+								<div class="card-body">
+									<div class="row">
+										<div class="col">
+											<h5 class="card-title text-uppercase text-muted mb-0">Magán</h5>
+										</div>
+										<div class="col">
+											<h5 class="card-title text-uppercase text-muted mb-0">Kirendelés</h5>
+											<span class="h2 font-weight-bold mb-0" th:text="${amountOrderMag}"></span>
+										</div>
+										<div class="col-auto">
+											<div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+												<i class="fas fa-chart-bar"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-3 col-lg-6">
+							<div class="card card-stats mb-4 mb-xl-0">
+								<div class="card-body">
+									<div class="row">
+										<div class="col">
+											<h5 class="card-title text-uppercase text-muted mb-0">Ebből kész</h5>
+											<span class="h2 font-weight-bold mb-0" th:text="${amountOrderMagDone}"></span>
+										</div>
+										<div class="col-auto">
+											<div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+												<i class="fas fa-chart-pie"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-3 col-lg-6">
+							<div class="card card-stats mb-4 mb-xl-0">
+								<div class="card-body">
+									<div class="row">
+										<div class="col">
+											<h5 class="card-title text-uppercase text-muted mb-0">Bevétel</h5>
+											<span class="h2 font-weight-bold mb-0" th:text="${amountIncomeMag}"></span>
+										</div>
+										<div class="col-auto">
+											<div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+												<i class="fas fa-users"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>

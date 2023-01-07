@@ -14,8 +14,7 @@
           crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link th:rel="stylesheet" th:href="@{/assets/izitoast/css/iziToast.css} "/>
     <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
-    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-</head>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script></head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <form th:action="@{/removeSelectedDataFromSession}" method="POST" >
@@ -27,7 +26,7 @@
 <div class="card border-primary mb-3">
     <h2 class="card-header" align="center">Kiválasztott aliktatás</h2>
     <div class="card-body">
-        <div class="alert alert-primary" align="center" role="alert" th:text="${success}" th:if="${success}"></div>
+        <div class="alert alert-success" id="target" align="center" role="alert" th:text="${success}" th:if="${success}"></div>
         <form class="col card p-3 mb-5" method="post" th:action="@{/submitEdit}" th:object="${dataEditInfo}">
         <div class="container">
             <div class="row">
@@ -185,14 +184,20 @@
         <section class="my-5">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-8 mx-auto">
+                    <div class="col-md-6 mx-auto">
                         <h4>Fájl feltöltése</h4>
-                        <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>
+                        <p th:text="${message}" th:if="${message ne null}" id="target1" class="alert alert-success"></p>
                         <form method="post" th:action="@{/upload}" enctype="multipart/form-data" th:object="${dataEditInfo}">
                             <div class="form-group">
                                 <input type="file" name="file" class="form-control-file">
                             </div>
                             <button type="submit" class="btn btn-primary">Feltöltés</button>
+                        </form>
+                    </div>
+                    <div class="col-md-6 mx-auto">
+                        <h4>Fájl letöltése</h4>
+                        <form method="get" th:action="@{/download}" enctype="multipart/form-data">
+                            <button type="submit" class="btn btn-info" th:name="id" th:value="${data.id}">Letöltés</button>
                         </form>
                     </div>
                 </div>
@@ -204,5 +209,54 @@
 <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 <script th:src="@{/assets/izitoast/js/iziToast.min.js}"></script>
+<script>
+/**
+ * @returns {Object}
+*/
+function defaultFadeConfig() {
+  return {
+      easing: 'linear',
+      iterations: 1,
+      direction: 'normal',
+      fill: 'forwards',
+      delay: 0,
+      endDelay: 0
+    }
+}
+
+/**
+ * @param {HTMLElement} target
+ * @param {number} durationInMs
+ * @param {Object} config
+ * @returns {Promise}
+ */
+async function fadeOut(target, durationInMs, config = defaultFadeConfig()) {
+  return new Promise((resolve, reject) => {
+    const animation = target.animate([
+      { opacity: '1' },
+      { opacity: '0', offset: 0.5 },
+      { opacity: '0', offset: 1 }
+    ], {duration: durationInMs, ...config});
+    animation.onfinish = () => resolve();
+  })
+}
+
+
+window.addEventListener('load', async ()=> {
+  let target = document.getElementById('target');
+  for(const it of "message") {
+    await fadeOut(target, 5000);
+    target.innerText = message;
+  }
+})
+window.addEventListener('load', async ()=> {
+  let target = document.getElementById('target1');
+  for(const it of "message") {
+    await fadeOut(target, 5000);
+    target.innerText = message;
+  }
+})
+;
+</script>
 </body>
 </html>

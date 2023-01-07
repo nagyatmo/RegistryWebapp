@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Date;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +30,15 @@ public class DataHolderController {
     @ModelAttribute("datasList")
     public List<Data> addDatassOfSelectedDataHolderToSession(Model model, SessionStatus sessionStatus, HttpServletRequest request){
         model.addAttribute("dataHolderAttr",(DataHolder) request.getSession().getAttribute("dataHolderAttr"));
+
+        service.getAllData().stream().filter(n-> ChronoUnit.DAYS.between(LocalDate.now(),n.getDate().toLocalDate())<=7)
+                .collect(Collectors.toList())
+                .stream()
+                .forEach(n->n.setUrgent(true));
+        service.getAllData().stream().filter(n-> ChronoUnit.DAYS.between(LocalDate.now(),n.getDate().toLocalDate())<=7)
+                .collect(Collectors.toList())
+                .stream()
+                .forEach(n->service.saveData(n));
         List<Data> datasList = service.getAllData().stream()
                 .filter(dat -> dat.getDataHolder().getId().equals(((DataHolder) request.getSession().getAttribute("dataHolderAttr")).getId()))
                 .collect(Collectors.toList());

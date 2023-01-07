@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <title>Keresés</title>
     <link rel="stylesheet" th:href="@{/bootstrap/bootstrap.css}">
-    <link rel="stylesheet" th:href="@{/assets/search.css}">
+    <link rel="stylesheet" th:href="@{/assets/nav.css}">
     <link th:rel="stylesheet" th:href="@{assets/bootstrap-switch/bootstrap-switch.min.css}"/>
     <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
           integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -16,14 +15,18 @@
     <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/home">Iktato rendszer</a>
-    <a class="navbar-brand" href="/submit">Adatfelvitel</a>
-    <a class="navbar-brand" href="#">Keresés</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+<nav class="navbar justify-content-center navbar-expand-lg navbar-dark bg-dark">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link " href="/home">Kezdőlap</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/submit">Adatfelvitel</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="">Keresés</a>
+        </li>
+    </ul>
 </nav>
 
 <div class="card border-primary mb-3">
@@ -111,7 +114,9 @@
                             <td th:text="${data.amount}"></td>
                             <td th:text="${data.ig_category}"></td>
                             <td th:text="${data.va_category}"></td>
-                            <td th:text="${data.date}"></td>
+                            <td>
+                                <div th:style="${data.urgent} ? 'color: red;' : 'color: black;'" th:text="${data.date}"></div>
+                            </td>
                             <td th:text="${data.description}">
                             <td>
                                 <div th:unless="${data.isDone}"><p>Folyamatban</p></div>
@@ -144,6 +149,7 @@
                         <th scope="col">Díj</th>
                         <th scope="col">Megbízó típus</th>
                         <th scope="col">Szakértői típus</th>
+                        <th scope="col">Lejárat</th>
                         <th scope="col">Határidő</th>
                         <th scope="col">Megjegyzés</th>
                         <th scope="col">Állapot</th>
@@ -168,7 +174,9 @@
                         <td th:text="${data.amount}"></td>
                         <td th:text="${data.ig_category}"></td>
                         <td th:text="${data.va_category}"></td>
-                        <td th:text="${data.date}"></td>
+                        <td>
+                            <div th:style="${data.urgent} ? 'color: red;' : 'color: black;'" th:text="${data.date}"></div>
+                        </td>
                         <td th:text="${data.description}">
                         <td>
                             <div th:unless="${data.isDone}"><p>Folyamatban</p></div>
