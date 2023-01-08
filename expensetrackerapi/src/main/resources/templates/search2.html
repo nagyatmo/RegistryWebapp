@@ -83,6 +83,7 @@
                     <table class="table table-hover table-sm">
                         <thead>
                         <tr>
+                            <th scope="col">Al. Szám</th>
                             <th scope="col">Helyrajzi szám</th>
                             <th scope="col">Irányítószám</th>
                             <th scope="col">Város</th>
@@ -102,6 +103,7 @@
                         </thead>
                         <tbody>
                         <tr th:each="data, rows : ${datas.dataStack}">
+                            <td th:text="${data.id}"></td>
                             <td th:text="${data.hszNum}"></td>
                             <td th:text="${data.irNum}"></td>
                             <td th:text="${data.city}"></td>
