@@ -13,12 +13,11 @@ public class SelectedDataNotDoneController {
     @Autowired
     private DataService dataService;
 
-
-
     @ModelAttribute("setNotDoneData")
     public Data setSelectedDataToDone(@RequestParam("dataIndex") int dataIndex, Model model) {
         Data selectedData = dataService.getDataById((long) dataIndex);
         selectedData.setIsDone(false);
+        selectedData.setUrgent(false);
         dataService.updateDataDetails(selectedData.getId(),selectedData);
         return selectedData;
     }

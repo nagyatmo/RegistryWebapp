@@ -9,14 +9,15 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class SelectedDataDoneController {
+
     @Autowired
     private DataService dataService;
-
 
     @ModelAttribute("setDoneData")
     public Data setSelectedDataToDone(@RequestParam("dataIndex") int dataIndex, Model model) {
         Data selectedData = dataService.getDataById((long) dataIndex);
         selectedData.setIsDone(true);
+        selectedData.setUrgent(false);
         dataService.updateDataDetails(selectedData.getId(),selectedData);
         return selectedData;
     }

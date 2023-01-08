@@ -28,17 +28,8 @@ public class DataHolderController {
     private DataService service;
 
     @ModelAttribute("datasList")
-    public List<Data> addDatassOfSelectedDataHolderToSession(Model model, SessionStatus sessionStatus, HttpServletRequest request){
+    public List<Data> addDatasOfSelectedDataHolderToSession(Model model, SessionStatus sessionStatus, HttpServletRequest request){
         model.addAttribute("dataHolderAttr",(DataHolder) request.getSession().getAttribute("dataHolderAttr"));
-
-        service.getAllData().stream().filter(n-> ChronoUnit.DAYS.between(LocalDate.now(),n.getDate().toLocalDate())<=7)
-                .collect(Collectors.toList())
-                .stream()
-                .forEach(n->n.setUrgent(true));
-        service.getAllData().stream().filter(n-> ChronoUnit.DAYS.between(LocalDate.now(),n.getDate().toLocalDate())<=7)
-                .collect(Collectors.toList())
-                .stream()
-                .forEach(n->service.saveData(n));
         List<Data> datasList = service.getAllData().stream()
                 .filter(dat -> dat.getDataHolder().getId().equals(((DataHolder) request.getSession().getAttribute("dataHolderAttr")).getId()))
                 .collect(Collectors.toList());

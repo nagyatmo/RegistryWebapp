@@ -46,8 +46,6 @@ public class SearchController {
             List<Data> dataList = new ArrayList<>();
             Page<Data> datas;
 
-
-
             if (keyword == null) {
                 dataHolders = dataHolderRepository.findAll(paging);
                 dataHolderList = dataHolders.getContent();
@@ -56,7 +54,6 @@ public class SearchController {
                 model.addAttribute("totalItems", dataHolders.getTotalElements());
                 model.addAttribute("totalPages", dataHolders.getTotalPages());
             } else {
-                //dataHolders = dataService.getByKeyword(keyword, paging).map(n->n.getDataHolder());
                 datas=dataService.getByKeyword(keyword, paging);
                 dataList = datas.getContent();
                 model.addAttribute("dataList", dataList);
@@ -65,7 +62,7 @@ public class SearchController {
                 model.addAttribute("totalPages", datas.getTotalPages());
             }
 
-
+            dataService.getAllData().stream().forEach(n->dataService.setToUrgentIfUrgent(n.getId()));
             model.addAttribute("keyword", keyword);
             model.addAttribute("pageSize", size);
         }catch (Exception e){

@@ -32,13 +32,11 @@ public class DataController {
 
     private final String UPLOAD_DIR = "./uploads/";
 
-
     @ModelAttribute("data")
     private Data addSelectedDataToSession(HttpServletRequest request){
         Data returnData = (Data) request.getSession().getAttribute("data");
         return returnData;
     }
-
 
     @RequestMapping(value = "/submitEdit", method = RequestMethod.POST)
     public String saveDataDetails(@ModelAttribute Data dataEditInfo, RedirectAttributes redirectAttributes,
@@ -85,10 +83,10 @@ public class DataController {
             Data data = temp.get();
             response.setContentType("application/octet-stream");
             String headerKey = "Content-Disposition";
-            String headerValue = "attachment; filename = "+data.getName();
+            String headerValue = "attachment; filename = "+data.getUploadedFile().getName();
             response.setHeader(headerKey, headerValue);
             ServletOutputStream outputStream = response.getOutputStream();
-            outputStream.write(data.getData());
+            outputStream.write(data.getUploadedFile().getData());
             outputStream.close();
         }
         return "redirect:selecteddata";

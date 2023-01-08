@@ -2,6 +2,7 @@ package com.release.iktatoapi.service;
 
 import com.release.iktatoapi.data.entity.Data;
 import com.release.iktatoapi.data.entity.DataHolder;
+import com.release.iktatoapi.data.entity.UploadedFile;
 import com.release.iktatoapi.data.repository.DataRepository;
 import com.release.iktatoapi.service.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class DataServiceImpl implements DataService {
@@ -29,6 +33,9 @@ public class DataServiceImpl implements DataService {
 
     @Autowired
     private DataHolderService dataHolderService;
+
+    @Autowired
+    private UploadedFileService uploadedFileService;
 
     @Override
     public List<Data> getAllData() {
@@ -80,6 +87,7 @@ public class DataServiceImpl implements DataService {
         matchingData.setVa_category(data.getVa_category()!=null ? data.getVa_category(): matchingData.getVa_category());
         matchingData.setPrincipal(data.getPrincipal()!=null ? data.getPrincipal(): matchingData.getPrincipal());
         matchingData.setPrincipalDelegate(data.getPrincipalDelegate()!=null ? data.getPrincipalDelegate(): matchingData.getPrincipalDelegate());
+        matchingData.setUrgent(data.isUrgent());
         matchingData.setDataIktNum(matchingData.getDataHolder().getIktNum());
         return dataRepo.save(matchingData);
     }
@@ -92,10 +100,24 @@ public class DataServiceImpl implements DataService {
     @Override
     public Data store(MultipartFile file, Data data) throws IOException {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        data.setData(file.getBytes());
-        data.setName(fileName);
-        data.setType(file.getContentType());
+        UploadedFile newUploadFile = new UploadedFile();
+        newUploadFile.setData(file.getBytes());
+        newUploadFile.setType(file.getContentType());
+        newUploadFile.setName(fileName);
+        uploadedFileService.saveUploadedFile(newUploadFile);
+        data.setUploadedFile(newUploadFile);
         return dataRepo.save(data);
+    }
+
+    public Data setToUrgentIfUrgent(Long id){
+        Optional<Data> dataById = Optional.ofNullable(getDataById(id));
+        if(ChronoUnit.DAYS.between(LocalDate.now(),dataById.get().getDate().toLocalDate())<=7 && !dataById.get().getIsDone()){
+            dataById.get().setUrgent(true);
+        }else{
+            dataById.get().setUrgent(false);
+        }
+        updateDataDetails(id,dataById.get());
+        return dataById.get();
     }
 
 }

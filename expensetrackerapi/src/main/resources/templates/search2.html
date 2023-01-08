@@ -47,7 +47,7 @@
                 <div class="col-md-6 mt-2">
                     <div class="search">
                         <input id="keyword" type="search" name="keyword" th:value="${keyword}" required class="form-control"
-                               placeholder="Keresés Iktatószám/Helyrajzi szám/Irányítószám/Város/Utca/Megbízó alapján">
+                               placeholder="Keresés Iktatószám/Helyrajzi szám/Irányítószám/Város/Utca/Megbízó/Perszám alapján">
                         <button type="submit" class="btn btn-secondary">Keresés</button>
                     </div>
                 </div>
@@ -65,7 +65,7 @@
     <h2 class="card-header" align="center">Iktatások</h2>
     <div class="card-body">
 <div th:if="${keyword==null}">
-    <table class="table table-hover table-responsive-xl">
+    <table class="table table-sm table-hover">
         <thead class="thead-light">
         <tr>
             <th scope="col">Iktatószám</th>
@@ -80,7 +80,7 @@
                     </form>
                 </td>
                 <td>
-                    <table class="table table-hover table-responsive-xl">
+                    <table class="table table-hover table-sm">
                         <thead>
                         <tr>
                             <th scope="col">Helyrajzi szám</th>
@@ -115,7 +115,11 @@
                             <td th:text="${data.ig_category}"></td>
                             <td th:text="${data.va_category}"></td>
                             <td>
-                                <div th:style="${data.urgent} ? 'color: red;' : 'color: black;'" th:text="${data.date}"></div>
+                                <div class="grid-container-element">
+                                    <div th:unless="${data.urgent}" class="greendot grid-child-element"><p></p></div>
+                                    <div th:if="${data.urgent}" class="reddot grid-child-element" ><p></p></div>
+                                    <div th:text="${data.date}" class="grid-child-element"></div>
+                                </div>
                             </td>
                             <td th:text="${data.description}">
                             <td>
@@ -133,7 +137,7 @@
 </div>
 
 <div th:if="${keyword!=null}">
-                <table class="table table-hover table-responsive-xl">
+                <table class="table table-hover table-sm">
                     <thead>
                     <tr>
                         <th scope="col">Iktatási szám</th>

@@ -45,15 +45,11 @@ public class Data {
     private String description;
     @Column(name = "data_dij")
     private Integer amount;
+    private String perNum;
+    private String alIktNum;
     private String ig_category;
     private String va_category;
     private Date date;
-    @Column(name="created_at",nullable=false,updatable=false)
-    @CreationTimestamp
-    private Timestamp createdAt;
-    @Column(name="updated_at")
-    @UpdateTimestamp
-    private Timestamp updatedAt;
     @ManyToOne(fetch = FetchType.EAGER,optional = false)
     @JoinColumn(name="user_id",nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -65,9 +61,14 @@ public class Data {
     private DataHolder dataHolder;
     @Column(name="iktNum")
     private String dataIktNum;
-    @Lob
-    private byte[] data;
-    private String type;
-    private String name;
+    @OneToOne
+    private UploadedFile uploadedFile;
     private boolean urgent;
+    @Column(name="created_at",nullable=false,updatable=false)
+    @CreationTimestamp
+    private Timestamp createdAt;
+    @Column(name="updated_at")
+    @UpdateTimestamp
+    private Timestamp updatedAt;
+
 }

@@ -5,6 +5,7 @@
     <title>Kiválasztott iktatás</title>
     <link rel="stylesheet" th:href="@{/bootstrap/bootstrap.css}">
     <link rel="stylesheet" th:href="@{/assets/search.css}">
+    <link rel="stylesheet" th:href="@{/assets/nav.css}">
     <link th:rel="stylesheet" th:href="@{assets/bootstrap-switch/bootstrap-switch.min.css}"/>
     <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
@@ -33,10 +34,11 @@
 <div class="card border-primary mb-3">
     <h2 class="card-header" align="center">Címek</h2>
     <div class="card-body">
-        <table class="table table-hover table-responsive-xl">
+        <table class="table table-hover table-sm">
             <thead class="thead">
             <tr>
                 <th scope="col">Megtekintés</th>
+                <th scope="col">Al.Szám</th>
                 <th scope="col">Helyrajzi szám</th>
                 <th scope="col">Irányítószám</th>
                 <th scope="col">Város</th>
@@ -64,6 +66,7 @@
                     <button type="submit" class="btn btn-primary" th:name="dataIndex" th:value="${data.id}">Megtekintés</button>
                 </form>
                 </td>
+                <td th:text="${data.id}"></td>
                 <td th:text="${data.hszNum}"></td>
                 <td th:text="${data.irNum}"></td>
                 <td th:text="${data.city}"></td>
@@ -76,7 +79,13 @@
                 <td th:text="${data.amount}"></td>
                 <td th:text="${data.ig_category}"></td>
                 <td th:text="${data.va_category}"></td>
-                <td th:style="${data.urgent} ? 'color: red;' : 'color: black;'" th:text="${data.date}"></td>
+                <td>
+                    <div class="grid-container-element">
+                        <div th:unless="${data.urgent}" class="greendot grid-child-element"><p></p></div>
+                        <div th:if="${data.urgent}" class="reddot grid-child-element" ><p></p></div>
+                        <div th:text="${data.date}" class="grid-child-element"></div>
+                    </div>
+                </td>
                 <td th:text="${data.description}"></td>
                 <td>
                     <form method="get" th:action="@{/download}" enctype="multipart/form-data">

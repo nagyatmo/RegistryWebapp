@@ -18,4 +18,5 @@ public interface DataService {
     Data updateDataDetails(Long id, Data data);
     Page<Data> getByKeyword(String keyword,Pageable pageable);
     Data store(MultipartFile file, Data data) throws IOException;
+    Data setToUrgentIfUrgent(Long id);
 }

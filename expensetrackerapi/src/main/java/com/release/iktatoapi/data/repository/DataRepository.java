@@ -14,7 +14,7 @@ import java.util.Optional;
 @Repository
 public interface DataRepository extends JpaRepository<Data, Long> {
 
-    @Query(value = "select * from tbl_data s where s.data_hlyrsz like %:keyword% or s.data_irsz like %:keyword% or s.data_varos like %:keyword% or s.data_megbizo like %:keyword% or s.ig_category like %:keyword% or s.data_utca like %:keyword% or s.ikt_num like %:keyword%", nativeQuery = true)
+    @Query(value = "select * from tbl_data s where s.data_hlyrsz like %:keyword% or s.data_irsz like %:keyword% or s.data_varos like %:keyword% or s.data_megbizo like %:keyword% or s.ig_category like %:keyword% or s.data_utca like %:keyword% or s.ikt_num like %:keyword% or s.per_num like %:keyword%", nativeQuery = true)
     Page<Data> findByKeyword(@Param("keyword") String keyword, Pageable pageable);
 
     Optional<Data> findByUserIdAndId(Long userId, Long expenseId);

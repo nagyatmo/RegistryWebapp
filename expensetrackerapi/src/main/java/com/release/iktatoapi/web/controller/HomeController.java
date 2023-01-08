@@ -23,12 +23,6 @@ public class HomeController {
     @Autowired
     private DataService dataService;
 
-
-    @ModelAttribute("user")
-    public User userInfo() {
-        return authenticationService.findUserByEmail(getUserDetails());
-    }
-
     @ModelAttribute("amountIncomeBir")
     public String amountIncomeBir() {
         return String.valueOf(dataService.getAllData().stream()
@@ -197,17 +191,6 @@ public class HomeController {
                 .stream()
                 .filter(n->n.getIsDone().equals(true))
                 .count());
-    }
-
-    private String getUserDetails() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username;
-        if(principal instanceof UserDetails) {
-            username = ((UserDetails) principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
-        return username;
     }
 
     @RequestMapping("/home")
