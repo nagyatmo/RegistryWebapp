@@ -87,6 +87,7 @@ public class DataServiceImpl implements DataService {
         matchingData.setVa_category(data.getVa_category()!=null ? data.getVa_category(): matchingData.getVa_category());
         matchingData.setPrincipal(data.getPrincipal()!=null ? data.getPrincipal(): matchingData.getPrincipal());
         matchingData.setPrincipalDelegate(data.getPrincipalDelegate()!=null ? data.getPrincipalDelegate(): matchingData.getPrincipalDelegate());
+        matchingData.setPerNum(data.getPerNum()!=null ? data.getPerNum() : matchingData.getPerNum());
         matchingData.setUrgent(data.isUrgent());
         matchingData.setDataIktNum(matchingData.getDataHolder().getIktNum());
         return dataRepo.save(matchingData);
