@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Keresés</title>
+    <link rel="stylesheet" th:href="@{/bootstrap/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/assets/nav.css}">
+    <link th:rel="stylesheet" th:href="@{assets/bootstrap-switch/bootstrap-switch.min.css}"/>
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+          integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<nav class="navbar justify-content-center navbar-expand-lg navbar-dark bg-dark">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link " href="/home">Kezdőlap</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/submit">Adatfelvitel</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="">Keresés</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="card border-primary mb-3">
+    <h2 class="card-header" align="center">Keresés</h2>
+    <div class="card-body">
+
+    <div th:if="${message != null}" class="alert alert-success alert-dismissible fade show text-center message"
+         role="alert">
+        [[${message}]]
+        <button type="button" class="close btn-sm" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="my-3">
+        <form th:action="@{/search2}" id="searchForm">
+            <div class="row d-flex">
+                <div class="col-md-6 mt-2">
+                    <div class="search">
+                        <input id="keyword" type="search" name="keyword" th:value="${keyword}" required class="form-control"
+                               placeholder="Keresés Iktatószám/Helyrajzi szám/Irányítószám/Város/Utca/Megbízó/Perszám alapján">
+                        <button type="submit" class="btn btn-secondary">Keresés</button>
+                    </div>
+                </div>
+                <div class="col-md-1 mt-2">
+                    <button id="btnClear" class="btn btn-info">Alapállapot</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+
+
+<div class="card border-primary mb-3">
+    <h2 class="card-header" align="center">Iktatások</h2>
+    <div class="card-body">
+<div th:if="${keyword==null}">
+    <table class="table table-sm table-hover">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">Iktatószám</th>
+            <th scope="col">Részletek</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="datas, rows : ${dataHolderList}">
+                <td>
+                    <form th:action="@{/selectedDataHolderPost}" method="POST">
+                        <button type="submit" class="btn btn-primary" th:name="dataHolderIndex" th:value="${datas.countNum}">[[${datas.iktNum}]]</button>
+                    </form>
+                </td>
+                <td>
+                    <table class="table table-hover table-sm">
+                        <thead>
+                        <tr>
+                            <th scope="col">Al. Szám</th>
+                            <th scope="col">Helyrajzi szám</th>
+                            <th scope="col">Irányítószám</th>
+                            <th scope="col">Város</th>
+                            <th scope="col">Utca</th>
+                            <th scope="col">Házszám</th>
+                            <th scope="col">Emelet</th>
+                            <th scope="col">Ajtó</th>
+                            <th scope="col">Megbízó</th>
+                            <th scope="col">Perszám</th>
+                            <th scope="col">Megbízó képviselője</th>
+                            <th th:if="${#strings.equals(loggedInUserRole,'AdminUser')}" scope="col">Díj</th>
+                            <th scope="col">Megbízó típus</th>
+                            <th scope="col">Szakértői típus</th>
+                            <th scope="col">Határidő</th>
+                            <th scope="col">Megjegyzés</th>
+                            <th scope="col">Állapot</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="data, rows : ${datas.dataStack}">
+                            <td th:text="${data.id}"></td>
+                            <td th:text="${data.hszNum}"></td>
+                            <td th:text="${data.irNum}"></td>
+                            <td th:text="${data.city}"></td>
+                            <td th:text="${data.street}"></td>
+                            <td th:text="${data.streetNum}"></td>
+                            <td th:text="${data.floorNum}"></td>
+                            <td th:text="${data.doorNum}"></td>
+                            <td th:text="${data.principal}"></td>
+                            <td th:text="${data.perNum}"></td>
+                            <td th:text="${data.principalDelegate}"></td>
+                            <td>
+                                <div th:if="${#strings.equals(loggedInUserRole,'AdminUser')}" th:text="${data.amount}"></div>
+                                <div th:unless="${#strings.equals(loggedInUserRole,'AdminUser')}"></div>
+                            </td>
+                            <td th:text="${data.ig_category}"></td>
+                            <td th:text="${data.va_category}"></td>
+                            <td>
+                                <div class="grid-container-element">
+                                    <div th:unless="${data.urgent}" class="greendot grid-child-element"><p></p></div>
+                                    <div th:if="${data.urgent}" class="reddot grid-child-element" ><p></p></div>
+                                    <div th:text="${data.date}" class="grid-child-element"></div>
+                                </div>
+                            </td>
+                            <td th:text="${data.description}">
+                            <td>
+                                <div th:unless="${data.isDone}"><p>Folyamatban</p></div>
+                                <div th:if="${data.isDone}"><p>Kész</p></div>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:if="${keyword!=null}">
+                <table class="table table-hover table-sm">
+                    <thead>
+                    <tr>
+                        <th scope="col">Iktatási szám</th>
+                        <th scope="col">Helyrajzi szám</th>
+                        <th scope="col">Irányítószám</th>
+                        <th scope="col">Város</th>
+                        <th scope="col">Utca</th>
+                        <th scope="col">Házszám</th>
+                        <th scope="col">Emelet</th>
+                        <th scope="col">Ajtó</th>
+                        <th scope="col">Megbízó</th>
+                        <th scope="col">Perszám</th>
+                        <th scope="col">Megbízó képviselője</th>
+                        <th th:if="${#strings.equals(loggedInUserRole,'AdminUser')}" scope="col">Díj</th>
+                        <th scope="col">Megbízó típus</th>
+                        <th scope="col">Szakértői típus</th>
+                        <th scope="col">Lejárat</th>
+                        <th scope="col">Határidő</th>
+                        <th scope="col">Megjegyzés</th>
+                        <th scope="col">Állapot</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="data, rows : ${dataList}">
+                        <td>
+                            <form th:action="@{/selectedDataPost}" method="POST">
+                                <button type="submit" class="btn btn-primary" th:name="dataIndex" th:value="${data.id}">[[${data.dataHolder.iktNum}]]</button>
+                            </form>
+                        </td>
+                        <td th:text="${data.hszNum}"></td>
+                        <td th:text="${data.irNum}"></td>
+                        <td th:text="${data.city}"></td>
+                        <td th:text="${data.street}"></td>
+                        <td th:text="${data.streetNum}"></td>
+                        <td th:text="${data.floorNum}"></td>
+                        <td th:text="${data.doorNum}"></td>
+                        <td th:text="${data.principal}"></td>
+                        <td th:text="${data.perNum}"></td>
+                        <td th:text="${data.principalDelegate}"></td>
+                        <td>
+                            <div th:if="${#strings.equals(loggedInUserRole,'AdminUser')}" th:text="${data.amount}"></div>
+                            <div th:unless="${#strings.equals(loggedInUserRole,'AdminUser')}"></div>
+                        </td>
+                        <td th:text="${data.ig_category}"></td>
+                        <td th:text="${data.va_category}"></td>
+                        <td>
+                            <div th:style="${data.urgent} ? 'color: red;' : 'color: black;'" th:text="${data.date}"></div>
+                        </td>
+                        <td th:text="${data.description}">
+                        <td>
+                            <div th:unless="${data.isDone}"><p>Folyamatban</p></div>
+                            <div th:if="${data.isDone}"><p>Kész</p></div>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+</div>
+    </div>
+</div>
+
+
+<nav aria-label="Pagination" th:if="${totalPages > 0}">
+    <ul class="pagination justify-content-center">
+        <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+            <a th:replace="fragments/paging :: paging(1, '<<', 'Első oldal')"></a>
+        </li>
+        <li class="page-item font-weight-bold" th:classappend="${currentPage == 1} ? 'disabled'">
+            <a th:replace="fragments/paging :: paging(${currentPage - 1}, 'Előző', 'Előző oldal')"></a>
+        </li>
+        <li class="page-item disabled" th:if="${currentPage - 2 > 1}">
+            <a class="page-link" href="#">...</a>
+        </li>
+        <li class="page-item" th:classappend="${page == currentPage} ? 'active'"
+            th:each="page : ${#numbers.sequence(currentPage > 2 ? currentPage - 2 : 1, currentPage + 2 < totalPages ? currentPage + 2 : totalPages)}">
+            <a th:replace="fragments/paging :: paging(${page}, ${page}, 'Oldal ' + ${page})"></a>
+        </li>
+        <li class="page-item disabled" th:if="${currentPage + 2 < totalPages}">
+            <a class="page-link" href="#">...</a>
+        </li>
+        <li class="page-item font-weight-bold" th:classappend="${currentPage == totalPages} ? 'disabled'">
+            <a th:replace="fragments/paging :: paging(${currentPage + 1},'Következő', 'Következő oldal')"></a>
+        </li>
+        <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+            <a th:replace="fragments/paging :: paging(${totalPages}, '>>', 'Utolsó oldal')"></a>
+        </li>
+    </ul>
+</nav>
+
+
+<!--<div class="modal fade text-center" id="confirmModal">-->
+<!--    <div class="modal-dialog">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h5 class="modal-title">Törlés megerősítése</h5>-->
+<!--                <button type="button" class="close" data-dismiss="modal">-->
+<!--                    <span aria-hidden="true">&times;</span>-->
+<!--                </button>-->
+<!--            </div>-->
+
+<!--            <div class="modal-body">-->
+<!--                <span id="confirmText"></span>-->
+<!--            </div>-->
+
+<!--            <div class="modal-footer">-->
+<!--                <a type="button" id="yesBtn" class="btn btn-danger">Yes</a>-->
+<!--                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<footer class="text-center">
+    Copyright &copy; Nagy Ádám - 2022
+</footer>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+      $(".btn-delete").on("click", function (e) {
+        e.preventDefault();
+        link = $(this);
+
+        tutorialTitle = link.attr("tutorialTitle");
+        $("#yesBtn").attr("href", link.attr("href"));
+        $("#confirmText").html("Do you want to delete the Tutorial \<strong\>" + tutorialTitle + "\<\/strong\>?");
+        $("#confirmModal").modal();
+      });
+
+      $("#btnClear").on("click", function (e) {
+        e.preventDefault();
+        $("#keyword").text("");
+        window.location = "[[@{/search2}]]";
+      });
+    });
+
+    function changePageSize() {
+      $("#searchForm").submit();
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--        <div class="card border-primary mb-3">-->
+<!--            <h2 class="card-header" align="center">Összes iktatás</h2>-->
+<!--            <div class="card-body">-->
+<!--                <table class="table table-bordered table-sm mt-2">-->
+<!--                    <tbody>-->
+<!--                        <tr th:each="maindat, rows : ${dataHolderList}" align="center">-->
+<!--                            <td align="center" th:text="${maindat.iktNum}"></td>-->
+<!--                            <td>-->
+<!--                                <table class="table table-bordered table-sm mt-2">-->
+<!--                                    <thead>-->
+<!--                                        <tr>-->
+<!--                                            <th scope="col">Helyrajzi szám</th>-->
+<!--                                            <th scope="col">Irányítószám</th>-->
+<!--                                            <th scope="col">Város</th>-->
+<!--                                            <th scope="col">Utca</th>-->
+<!--                                            <th scope="col">Házszám</th>-->
+<!--                                            <th scope="col">Emelet</th>-->
+<!--                                            <th scope="col">Ajtó</th>-->
+<!--                                            <th scope="col">Megbízó</th>-->
+<!--                                            <th scope="col">Megbízó képviselője</th>-->
+<!--                                            <th scope="col">Díj</th>-->
+<!--                                            <th scope="col">Megbízó típus</th>-->
+<!--                                            <th scope="col">Szakértői típus</th>-->
+<!--                                            <th scope="col">Határidő</th>-->
+<!--                                            <th scope="col">Megjegyzés</th>-->
+<!--                                            <th scope="col">Állapot</th>-->
+<!--                                            <th scope="col">Műveletek</th>-->
+<!--                                        </tr>-->
+<!--                                    </thead>-->
+<!--                                    <tbody>-->
+<!--                                         <tr th:each="data, rows : ${maindat.dataStack}">-->
+<!--                                            <td th:text="${data.hszNum}"></td>-->
+<!--                                            <td th:text="${data.irNum}"></td>-->
+<!--                                            <td th:text="${data.city}"></td>-->
+<!--                                            <td th:text="${data.street}"></td>-->
+<!--                                            <td th:text="${data.streetNum}"></td>-->
+<!--                                            <td th:text="${data.floorNum}"></td>-->
+<!--                                            <td th:text="${data.doorNum}"></td>-->
+<!--                                            <td th:text="${data.principal}"></td>-->
+<!--                                            <td th:text="${data.principalDelegate}"></td>-->
+<!--                                            <td th:text="${data.amount}"></td>-->
+<!--                                            <td th:text="${data.ig_category}"></td>-->
+<!--                                            <td th:text="${data.va_category}"></td>-->
+<!--                                            <td th:text="${data.date}"></td>-->
+<!--                                            <td th:text="${data.description}">-->
+<!--                                            <td>-->
+<!--                                                <div th:unless="${data.isDone}"><p>Folyamatban</p></div>-->
+<!--                                                <div th:if="${data.isDone}"><p>Kész</p></div>-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                <form th:unless="${data.isDone}" th:action="@{/setDone}" method="post">-->
+<!--                                                    <button type="submit" class="btn btn-info" th:name="dataIndex" th:value="${data.id}">Kész</button>-->
+<!--                                                </form>-->
+<!--                                                <form th:if="${data.isDone}" th:action="@{/setNotDone}" method="post">-->
+<!--                                                    <button type="submit" class="btn btn-info" th:name="dataIndex" th:value="${data.id}">Folyamatban</button>-->
+<!--                                                </form>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+
+<!--                                    </tbody>-->
+<!--                                </table>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                    </tbody>-->
+<!--                </table>-->
+<!--            </div>-->
+<!--        </div>-->
+
+
+
+
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{assets/bootstrap-switch/bootstrap-switch.min.js}"></script>
+
+<script>
+    $('[data-toggle="switch"]').bootstrapSwitch();
+</script>
+
+</body>
+</html>

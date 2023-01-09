@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Regisztráció</title>
+	<link rel="stylesheet" th:href="@{/bootstrap/bootstrap.css}">
+	<link rel="stylesheet" th:href="@{/assets/login.css}">
+</head>
+<body>
+	<div class="jumbotron jumbotron-fluid">
+		<div class="container" align=center>
+			<h1 class="display-4">
+				<span class="text-white"><strong>Iktató rendszer.</strong></span>
+			</h1>
+			<span class="text-white">Jelentkezz be.</span>
+		</div>
+	</div>
+	<div class="display-4" align=center>
+		<span class="text-primary">Regisztrálj</span> a kezdéshez!
+	</div>
+	<br />
+	<div class="card">
+		<h5 class="card-header">
+			<span class="text-white">Regisztráció</span>
+		</h5>
+		<div class="card-body">
+			<form th:action="@{/register}" method="POST" th:object="${userInfo}">
+				<div class="form-group">
+					<label for="email">Email</label>
+					<input class="form-control" id="email" placeholder="Email" required
+						   th:field="*{email}"
+						   type="text"/>
+				</div>
+				<div class="form-group">
+					<label for="password">Jelszó</label>
+					<input class="form-control" id="password" placeholder="Jelszó" required
+						   th:field="*{password}"
+						   type="text"/>
+				</div>
+				<div class="form-group">
+					<label for="role">Felhasználó típus</label>
+					<select class="form-control " id="role" th:field="*{role}">
+						<option hidden value="">Válassz felhasználó típust</option>
+						<option
+								th:each="role : ${T(com.release.iktatoapi.data.entity.Role).values()}"
+								th:text="${role}"
+								th:value="${role}">
+						</option>
+					</select>
+				</div>
+				<button type="submit" class="btn btn-primary">Regisztráció</button>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

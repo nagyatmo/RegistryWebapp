@@ -1,0 +1,19 @@
+admin felhasználó - lát mindent 
+kezelői felhasználó (nem látja a díjakat, bevételt)
+listázás irányítószám alapján növekvő sorrendbe
+ig típus->megbízó típúsa /kiírva a típusokat
+dátum év/hónap/nap
+va típús->szakértői típus
+vata=értékfenttartó
+iktatószám generálás
+BM_001_5_2023
+BM fix
+001 - sorszám
+5 - aliktatások száma
+2022 - iktatás éve
+
+2022/12/20
+-selected iktatás page
+-selected cím page + edit
+-pagination and sorting
+-file upload/download

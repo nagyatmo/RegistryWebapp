@@ -8,18 +8,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Date;
-import java.util.List;
+
 import java.util.Optional;
 
 @Repository
 public interface DataRepository extends JpaRepository<Data, Long> {
 
-    @Query(value = "select * from tbl_data s where s.data_hlyrsz like %:keyword% or s.data_irsz like %:keyword% or s.data_varos like %:keyword% or s.data_megbizo like %:keyword% or s.ig_category like %:keyword%", nativeQuery = true)
-    List<Data> findByKeyword(@Param("keyword") String hszNum);
-    Page<Data> findByUserIdAndHszNum(Long userId, String hszNum, Pageable page);
-//    Page<Data> findByUserAndNameContaining(Long userId, String keyword, Pageable page);
-//    Page<Data> findByUserAndDateBetween(Long userId, Date startDate, Date endDate, Pageable page);
-    Page<Data> findByUserId(Long userId, Pageable page);
+    @Query(value = "select * from tbl_data s where s.data_hlyrsz like %:keyword% or s.data_irsz like %:keyword% or s.data_varos like %:keyword% or s.data_megbizo like %:keyword% or s.ig_category like %:keyword% or s.data_utca like %:keyword% or s.ikt_num like %:keyword% or s.per_num like %:keyword%", nativeQuery = true)
+    Page<Data> findByKeyword(@Param("keyword") String keyword, Pageable pageable);
+
     Optional<Data> findByUserIdAndId(Long userId, Long expenseId);
 }

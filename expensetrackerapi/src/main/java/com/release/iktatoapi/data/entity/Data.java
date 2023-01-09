@@ -3,15 +3,11 @@ package com.release.iktatoapi.data.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.sql.Timestamp;
 import java.sql.Date;
 
@@ -24,7 +20,7 @@ import java.sql.Date;
 @Table(name = "tbl_data")
 public class Data {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(name = "data_hlyrsz")
     private String hszNum;
@@ -49,18 +45,30 @@ public class Data {
     private String description;
     @Column(name = "data_dij")
     private Integer amount;
+    private String perNum;
+    private String alIktNum;
     private String ig_category;
     private String va_category;
     private Date date;
+    @ManyToOne(fetch = FetchType.EAGER,optional = false)
+    @JoinColumn(name="user_id",nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private User user;
+    private Boolean isDone;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "dataHolder_id")
+    private DataHolder dataHolder;
+    @Column(name="iktNum")
+    private String dataIktNum;
+    @OneToOne
+    private UploadedFile uploadedFile;
+    private boolean urgent;
     @Column(name="created_at",nullable=false,updatable=false)
     @CreationTimestamp
     private Timestamp createdAt;
     @Column(name="updated_at")
     @UpdateTimestamp
     private Timestamp updatedAt;
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
-    @JoinColumn(name="user_id",nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    private User user;
+
 }

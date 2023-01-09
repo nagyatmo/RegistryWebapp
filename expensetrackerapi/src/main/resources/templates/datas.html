@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Kiválasztott iktatás</title>
+    <link rel="stylesheet" th:href="@{/bootstrap/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/assets/search.css}">
+    <link rel="stylesheet" th:href="@{/assets/nav.css}">
+    <link th:rel="stylesheet" th:href="@{assets/bootstrap-switch/bootstrap-switch.min.css}"/>
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+          integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <form th:action="@{/removeSelectedDataHolderFromSession}" method="POST">
+        <button type="submit" class="btn btn-primary">Vissza</button>
+    </form>
+
+</nav>
+
+
+<div class="card border-primary mb-3">
+    <h2 class="card-header" align="center">Kiválasztott iktatás</h2>
+    <div class="card-body">
+        <h4 align="center" th:text="${dataHolderAttr.iktNum}"></h4>
+    </div>
+</div>
+<div class="card border-primary mb-3">
+    <h2 class="card-header" align="center">Címek</h2>
+    <div class="card-body">
+        <table class="table table-hover table-sm">
+            <thead class="thead">
+            <tr>
+                <th scope="col">Megtekintés</th>
+                <th scope="col">Al.Szám</th>
+                <th scope="col">Helyrajzi szám</th>
+                <th scope="col">Irányítószám</th>
+                <th scope="col">Város</th>
+                <th scope="col">Utca</th>
+                <th scope="col">Házszám</th>
+                <th scope="col">Emelet</th>
+                <th scope="col">Ajtó</th>
+                <th scope="col">Megbízó</th>
+                <th scope="col">Perszám</th>
+                <th scope="col">Megbízó képviselője</th>
+                <th th:if="${#strings.equals(loggedInUserRole,'AdminUser')}" scope="col">Díj</th>
+                <th scope="col">Megbízó típus</th>
+                <th scope="col">Szakértői típus</th>
+                <th scope="col">Határidő</th>
+                <th scope="col">Megjegyzés</th>
+                <th scope="col">Fájl</th>
+                <th scope="col">Állapot</th>
+                <th scope="col">Műveletek</th>
+                <th scope="col">Törlés</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="data, rows : ${datasList}">
+                <td>
+                <form th:action="@{/selectedDataPost}" method="POST">
+                    <button type="submit" class="btn btn-primary" th:name="dataIndex" th:value="${data.id}">Megtekintés</button>
+                </form>
+                </td>
+                <td th:text="${data.id}"></td>
+                <td th:text="${data.hszNum}"></td>
+                <td th:text="${data.irNum}"></td>
+                <td th:text="${data.city}"></td>
+                <td th:text="${data.street}"></td>
+                <td th:text="${data.streetNum}"></td>
+                <td th:text="${data.floorNum}"></td>
+                <td th:text="${data.doorNum}"></td>
+                <td th:text="${data.principal}"></td>
+                <td th:text="${data.perNum}"></td>
+                <td th:text="${data.principalDelegate}"></td>
+                <td>
+                    <div th:if="${#strings.equals(loggedInUserRole,'AdminUser')}" th:text="${data.amount}"></div>
+                    <div th:unless="${#strings.equals(loggedInUserRole,'AdminUser')}"></div>
+                </td>
+                <td th:text="${data.ig_category}"></td>
+                <td th:text="${data.va_category}"></td>
+                <td>
+                    <div class="grid-container-element">
+                        <div th:unless="${data.urgent}" class="greendot grid-child-element"><p></p></div>
+                        <div th:if="${data.urgent}" class="reddot grid-child-element" ><p></p></div>
+                        <div th:text="${data.date}" class="grid-child-element"></div>
+                    </div>
+                </td>
+                <td th:text="${data.description}"></td>
+                <td>
+                    <form method="get" th:action="@{/download}" enctype="multipart/form-data">
+                        <button type="submit" class="btn btn-info" th:name="id" th:value="${data.id}">Letöltés</button>
+                    </form>
+                </td>
+                <td>
+                    <div th:unless="${data.isDone}"><p>Folyamatban</p></div>
+                    <div th:if="${data.isDone}"><p>Kész</p></div>
+                </td>
+                <td>
+                    <form th:unless="${data.isDone}" th:action="@{/setDone}" method="post">
+                        <button type="submit" class="btn btn-info" th:name="dataIndex" th:value="${data.id}">Kész</button>
+                    </form>
+                    <form th:if="${data.isDone}" th:action="@{/setNotDone}" method="post">
+                        <button type="submit" class="btn btn-secondary" th:name="dataIndex" th:value="${data.id}">Folyamatban</button>
+                    </form>
+                </td>
+                <td>
+
+                    <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter" >Törlés</button>
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Törlés megerősítése</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Vissza</button>
+                                    <form th:action="@{/deleteData}" method="post">
+                                    <button type="submit" class="btn btn-danger" th:name="dataId" th:value="${data.id}">Törlés</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+<script>
+$('#myModal').on('shown.bs.modal', function () {
+  $('#myInput').trigger('focus')
+})
+
+$('#exampleModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var recipient = button.data('whatever') // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+  modal.find('.modal-title').text('New message to ' + recipient)
+  modal.find('.modal-body input').val(recipient)
+})
+</script>
+</body>
+</html>

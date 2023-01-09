@@ -1,0 +1,35 @@
+.nav-link{
+    font-size: 1.2em;
+}
+
+.active{
+    text-shadow: 1px 1px 5px white;
+}
+
+.reddot {
+  height: 12px;
+  width: 12px;
+  background-color: red;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.greendot {
+  height: 12px;
+  width: 12px;
+  background-color: green;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.grid-container-element {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+    width: 50%;
+}
+.grid-child-element {
+    margin: 10px;
+}
+
+

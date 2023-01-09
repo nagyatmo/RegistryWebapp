@@ -20,36 +20,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private CustomUserDetailsService userDetailsService;
 
 
-
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//
-//        http
-//                .csrf().disable()
-//                .authorizeRequests()
-//                .antMatchers("/login", "/register","/home").permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-//        http.httpBasic();
-//
-//    }
 @Override
 protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests()
-            .antMatchers("/assets/**", "/bootstrap/**").permitAll()
+            .antMatchers("/assets/**", "/bootstrap/**","/register").permitAll()
             .antMatchers("/**").hasRole("USER")
+            .anyRequest().authenticated()
             .and()
             .formLogin().loginPage("/login").permitAll()
             .successForwardUrl("/home")
             .and()
             .logout().logoutUrl("/logout").permitAll();
 
-    http.csrf().disable();
 }
-
-
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -64,7 +47,6 @@ protected void configure(HttpSecurity http) throws Exception {
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
-
         return super.authenticationManagerBean();
     }
 

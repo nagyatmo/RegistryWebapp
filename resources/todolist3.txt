@@ -1,0 +1,4 @@
+clean up the code
+staticstics page group
+alert implementation
+iktnum id generation

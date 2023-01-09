@@ -4,11 +4,9 @@ import com.release.iktatoapi.data.entity.User;
 import com.release.iktatoapi.data.model.UserModel;
 
 public interface UserService {
-    User createUser(UserModel user);
+    User createUser(User user);
 
     User read();
-
-    User update(UserModel user);
 
     void delete();
 

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Aliktatás</title>
+    <link rel="stylesheet" th:href="@{/bootstrap/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/assets/search.css}">
+    <link th:rel="stylesheet" th:href="@{assets/bootstrap-switch/bootstrap-switch.min.css}"/>
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+          integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link th:rel="stylesheet" th:href="@{/assets/izitoast/css/iziToast.css} "/>
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script></head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <form th:action="@{/removeSelectedDataFromSession}" method="POST" >
+        <button type="submit" class="btn btn-primary" th:name="dataIndex" th:value="${data.id}">Vissza</button>
+    </form>
+</nav>
+
+
+<div class="card border-primary mb-3">
+    <h2 class="card-header" align="center">Kiválasztott aliktatás</h2>
+    <div class="card-body">
+        <div class="alert alert-success" id="target" align="center" role="alert" th:text="${success}" th:if="${success}"></div>
+        <form class="col card p-3 mb-5" method="post" th:action="@{/submitEdit}" th:object="${dataEditInfo}">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Jelenlegi iktatószám</div>
+                        </div>
+                        <input type="text" class="form-control" th:name="iktNum"
+                               th:value="${data.dataHolder.iktNum}">
+                    </div>
+                    <div class="form-group" th:object="${idDataHolderValue}">
+                    <label for="dataH">Új iktatószám csatolása</label>
+                        <select class="form-control " id="dataH" name="idDataHolderValue" required th:field="*{idValue}">
+                            <option
+                                    th:value="${data.dataHolder.id}"
+                                    >Nincs változtatás
+                            </option>
+                            <option
+                                    th:each="datas : ${datasList}"
+                                    th:text="${datas.iktNum}"
+                                    th:value="${datas.id}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Helyrajziszám</div>
+                        </div>
+                        <input type="text" class="form-control" th:name="hszNum"
+                                th:field="*{hszNum}">
+                    </div>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Irányítószám</div>
+                        </div>
+                        <input id="irNum" name="irNum" type="text" class="form-control" th:name="irNum"
+                                th:field="*{irNum}">
+                    </div>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Város</div>
+                        </div>
+                        <input type="text" class="form-control" th:name="city"
+                               th:field="*{city}">
+                    </div>
+
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Utca</div>
+                        </div>
+                        <input type="text" class="form-control" th:name="street"
+                                th:field="*{street}">
+                    </div>
+
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Házszám</div>
+                        </div>
+                        <input type="text" class="form-control" th:name="streetNum"
+                                th:field="*{streetNum}">
+                    </div>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Emelet</div>
+                        </div>
+                        <input type="text" class="form-control" th:name="floorNum"
+                                th:field="*{floorNum}">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Ajtó</div>
+                        </div>
+                        <input type="text" class="form-control" th:name="doorNum"
+                                th:field="*{doorNum}">
+                    </div>
+
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Megbízó</div>
+                            </div>
+                            <input type="text" class="form-control" th:name="principal"
+                                    th:field="*{principal}">
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Perszám</div>
+                            </div>
+                            <input type="text" class="form-control" th:name="perNum"
+                                   th:field="*{perNum}">
+                        </div>
+
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Megbízó képviselője</div>
+                            </div>
+                            <input type="text" class="form-control" th:name="principalDelegate"
+                                    th:field="*{principalDelegate}">
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Díj</div>
+                            </div>
+                            <input type="text" class="form-control" th:name="amount"
+                                    th:field="*{amount}">
+                        </div>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                        <label for="ig_category" >Megbízó típus</label>
+                        </div>
+                        <select class="form-control " id="ig_category" required th:field="*{ig_category}" >
+                            <option hidden value="" >Válassz megbízó típust</option>
+                            <option
+                                    th:each="igCategory : ${T(com.release.iktatoapi.data.entity.IgCategory).values()}"
+                                    th:text="${igCategory}"
+                                    th:value="${igCategory}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                        <label for="va_category">Szakértői típus</label>
+                        </div>
+                        <select class="form-control " id="va_category" required th:field="*{va_category}">
+                            <option hidden value="">Válassz szakértői típust</option>
+                            <option
+                                    th:each="vaCategory : ${T(com.release.iktatoapi.data.entity.VaCategory).values()}"
+                                    th:text="${vaCategory}"
+                                    th:value="${vaCategory}">
+                            </option>
+                        </select>
+                    </div>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Megjegyzés</div>
+                                </div>
+                                <input type="text" class="form-control" th:name="description"
+                                        th:field="*{description}">
+                            </div>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Határidő</div>
+                                </div>
+                                <input type="date" class="form-control" th:name="date"
+                                       th:field="*{date}">
+                            </div>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Feltöltött fájl</div>
+                        </div>
+                        <input type="text" class="form-control" th:name="name" disabled
+                               th:field="*{uploadedFile.name}">
+                    </div>
+
+                        </div>
+                    </div>
+                    <input class="btn btn-primary" type="submit" value="Mentés">
+                </div>
+        </form>
+        <section class="my-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 mx-auto">
+                        <h4>Fájl feltöltése</h4>
+                        <p th:text="${message}" th:if="${message ne null}" id="target1" class="alert alert-success"></p>
+                        <form method="post" th:action="@{/upload}" enctype="multipart/form-data" th:object="${dataEditInfo}">
+                            <div class="form-group">
+                                <input type="file" name="file" class="form-control-file">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Feltöltés</button>
+                        </form>
+                    </div>
+                    <div class="col-md-6 mx-auto">
+                        <h4>Fájl letöltése</h4>
+                        <form method="get" th:action="@{/download}" enctype="multipart/form-data">
+                            <button type="submit" class="btn btn-info" th:name="id" th:value="${data.id}">Letöltés</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/izitoast/js/iziToast.min.js}"></script>
+<script>
+/**
+ * @returns {Object}
+*/
+function defaultFadeConfig() {
+  return {
+      easing: 'linear',
+      iterations: 1,
+      direction: 'normal',
+      fill: 'forwards',
+      delay: 0,
+      endDelay: 0
+    }
+}
+
+/**
+ * @param {HTMLElement} target
+ * @param {number} durationInMs
+ * @param {Object} config
+ * @returns {Promise}
+ */
+async function fadeOut(target, durationInMs, config = defaultFadeConfig()) {
+  return new Promise((resolve, reject) => {
+    const animation = target.animate([
+      { opacity: '1' },
+      { opacity: '0', offset: 0.5 },
+      { opacity: '0', offset: 1 }
+    ], {duration: durationInMs, ...config});
+    animation.onfinish = () => resolve();
+  })
+}
+
+
+window.addEventListener('load', async ()=> {
+  let target = document.getElementById('target');
+  for(const it of "message") {
+    await fadeOut(target, 5000);
+    target.innerText = message;
+  }
+})
+window.addEventListener('load', async ()=> {
+  let target = document.getElementById('target1');
+  for(const it of "message") {
+    await fadeOut(target, 5000);
+    target.innerText = message;
+  }
+})
+;
+</script>
+</body>
+</html>
