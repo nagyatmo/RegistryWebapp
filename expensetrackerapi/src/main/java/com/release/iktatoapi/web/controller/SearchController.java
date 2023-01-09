@@ -36,6 +36,12 @@ public class SearchController {
     private DataRepository dataRepository;
 
 
+    @ModelAttribute("loggedInUserRole")
+    public String getLoggedInUserRole(){
+        return userService.getLoggedInUser().getRole();
+    }
+
+
     @GetMapping("/search2")
     public String getAll(Model model, @RequestParam(defaultValue ="1") int page, @RequestParam(required = false) String keyword,
                          @RequestParam(defaultValue="8") int size){

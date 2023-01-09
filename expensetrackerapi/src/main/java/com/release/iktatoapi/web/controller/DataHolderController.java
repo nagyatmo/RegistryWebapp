@@ -3,6 +3,7 @@ package com.release.iktatoapi.web.controller;
 import com.release.iktatoapi.data.entity.Data;
 import com.release.iktatoapi.data.entity.DataHolder;
 import com.release.iktatoapi.service.DataService;
+import com.release.iktatoapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +27,14 @@ public class DataHolderController {
 
     @Autowired
     private DataService service;
+
+    @Autowired
+    private UserService userService;
+
+    @ModelAttribute("loggedInUserRole")
+    public String getLoggedInUserRole(){
+        return userService.getLoggedInUser().getRole();
+    }
 
     @ModelAttribute("datasList")
     public List<Data> addDatasOfSelectedDataHolderToSession(Model model, SessionStatus sessionStatus, HttpServletRequest request){

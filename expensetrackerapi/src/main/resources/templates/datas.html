@@ -49,7 +49,7 @@
                 <th scope="col">Megbízó</th>
                 <th scope="col">Perszám</th>
                 <th scope="col">Megbízó képviselője</th>
-                <th scope="col">Díj</th>
+                <th th:if="${#strings.equals(loggedInUserRole,'AdminUser')}" scope="col">Díj</th>
                 <th scope="col">Megbízó típus</th>
                 <th scope="col">Szakértői típus</th>
                 <th scope="col">Határidő</th>
@@ -78,7 +78,10 @@
                 <td th:text="${data.principal}"></td>
                 <td th:text="${data.perNum}"></td>
                 <td th:text="${data.principalDelegate}"></td>
-                <td th:text="${data.amount}"></td>
+                <td>
+                    <div th:if="${#strings.equals(loggedInUserRole,'AdminUser')}" th:text="${data.amount}"></div>
+                    <div th:unless="${#strings.equals(loggedInUserRole,'AdminUser')}"></div>
+                </td>
                 <td th:text="${data.ig_category}"></td>
                 <td th:text="${data.va_category}"></td>
                 <td>

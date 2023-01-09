@@ -4,6 +4,7 @@ import com.release.iktatoapi.data.entity.Data;
 import com.release.iktatoapi.data.entity.DataHolder;
 import com.release.iktatoapi.service.DataHolderService;
 import com.release.iktatoapi.service.DataService;
+import com.release.iktatoapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,13 @@ public class SubmitController {
     @Autowired
     private DataHolderService dataHolderService;
 
+    @Autowired
+    private UserService userService;
+
+    @ModelAttribute("loggedInUserRole")
+    public String getLoggedInUserRole(){
+        return userService.getLoggedInUser().getRole();
+    }
 
     @PostMapping("/generateDataHolder")
     public String generateDataHolder(RedirectAttributes redirectAttributes){

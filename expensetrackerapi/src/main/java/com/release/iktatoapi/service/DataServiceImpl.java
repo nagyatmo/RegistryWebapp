@@ -44,11 +44,11 @@ public class DataServiceImpl implements DataService {
 
     @Override
     public Data getDataById(Long id) {
-        Optional<Data> expense = dataRepo.findByUserIdAndId(userService.getLoggedInUser().getId(),id);
-        if(expense.isPresent()){
-            return expense.get();
+        Optional<Data> foundData = dataRepo.findById(id);
+        if(foundData.isPresent()){
+            return foundData.get();
         }
-        throw new ResourceNotFoundException("Expense is not found for the id "+id);
+        throw new ResourceNotFoundException("Az iktatás nem található ezzel az azonosítóval: "+id);
     }
 
     @Override

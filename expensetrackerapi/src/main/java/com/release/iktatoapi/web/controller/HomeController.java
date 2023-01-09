@@ -5,6 +5,7 @@ import com.release.iktatoapi.data.entity.Data;
 import com.release.iktatoapi.data.entity.User;
 import com.release.iktatoapi.service.AuthenticationService;
 import com.release.iktatoapi.service.DataService;
+import com.release.iktatoapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,7 +22,16 @@ public class HomeController {
     private AuthenticationService authenticationService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private DataService dataService;
+
+    @ModelAttribute("loggedInUserRole")
+    public String getLoggedInUserRole(){
+        System.out.println(userService.getLoggedInUser().getRole());
+        return userService.getLoggedInUser().getRole();
+    }
 
     @ModelAttribute("amountIncomeBir")
     public String amountIncomeBir() {

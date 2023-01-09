@@ -5,6 +5,7 @@ import com.release.iktatoapi.data.entity.DataHolder;
 import com.release.iktatoapi.data.entity.LongIdModel;
 import com.release.iktatoapi.service.DataHolderService;
 import com.release.iktatoapi.service.DataService;
+import com.release.iktatoapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,14 @@ public class DataController {
     private DataService dataService;
 
     private final String UPLOAD_DIR = "./uploads/";
+
+    @Autowired
+    private UserService userService;
+
+    @ModelAttribute("loggedInUserRole")
+    public String getLoggedInUserRole(){
+        return userService.getLoggedInUser().getRole();
+    }
 
     @ModelAttribute("data")
     private Data addSelectedDataToSession(HttpServletRequest request){
